@@ -8,5 +8,7 @@ const asyncHandler = handler => (req, res, next) => handler(req, res, next).catc
 
 module.exports = {
     csrfProtection,
-    asyncHandler
+    asyncHandler,
+    check,
+    validationResult
 }
