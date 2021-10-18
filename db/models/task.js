@@ -16,6 +16,8 @@ module.exports = (sequelize, DataTypes) => {
   Task.associate = function (models) {
     Task.hasMany(models.Note, {
       foreignKey: "taskId",
+      onDelete: "cascade",
+      hooks: true,
     });
     Task.belongsTo(models.Project, {
       foreignKey: "projectId",

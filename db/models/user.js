@@ -12,9 +12,13 @@ module.exports = (sequelize, DataTypes) => {
   User.associate = function (models) {
     User.hasMany(models.Project, {
       foreignKey: "userId",
+      onDelete: "cascade",
+      hooks: true,
     });
     User.hasMany(models.Task, {
       foreignKey: "userId",
+      onDelete: "cascade",
+      hooks: true,
     });
   };
   return User;

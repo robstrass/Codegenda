@@ -16,6 +16,8 @@ module.exports = (sequelize, DataTypes) => {
     });
     Project.hasMany(models.Task, {
       foreignKey: "projectId",
+      onDelete: "cascade",
+      hooks: true,
     });
   };
   return Project;
