@@ -5,7 +5,7 @@ block content
     div(class="errors-container")
       ul
         each error in errors
-          li= error.message
+          li= error
     h2 Sign Up
     form(class="sign-up-form" action='/users/signup' method="POST")
       input(type="hidden" name='_csrf' value=csrfToken)
