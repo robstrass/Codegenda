@@ -11,12 +11,10 @@ router.get('/home', requireAuth, function(req, res, next) {
   if(requireAuth) {
     res.render('home')
   } else {
+    console.log('bye')
     res.redirect('/login');
   }
 });
-
-
-
 
 
 module.exports = router;
