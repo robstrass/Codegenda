@@ -13,12 +13,12 @@ html
         ul(class='')
         if locals.authenticated
           span(class='') Welcome #{user.firstName}!
-          form(class='' action='/user/logout' method='post')
+          form(class='' action='/users/logout' method='post')
             button(class='' type='submit') Logout
         else
           span(class='')
-            a(class='' href='/user/login') Login
-            a(class='' href='/user/register') Register
-            a(class="" href="/home") Demo User
+            a(class='' href='/users/login') Login
+            a(class='' href='/users/signup') Sign Up!
+            a(class="button" id="demoButton" href="/users/home") Demo User
 
     block content
