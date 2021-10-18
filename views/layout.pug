@@ -11,9 +11,6 @@ html
         span(class='')
       div(class='' id='navbarText')
         ul(class='')
-          //- Empty menu keeps the content that follows the
-          //- unordered list correctly positioned on the
-          //- right side of the navbar.
         if locals.authenticated
           span(class='') Welcome #{user.firstName}!
           form(class='' action='/user/logout' method='post')
