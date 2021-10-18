@@ -2,7 +2,26 @@ doctype html
 html
   head
       block head
-        title="Express Starter App"
+        title="Codegenda"
         link(rel='stylesheet' href='/stylesheets/reset.css')
   body
+    nav(class="nav-bar")
+      a(class="brand" href="/") CodeGenda
+      button(class='' type='button' data-toggle='collapse' data-target='#navbarText' aria-controls='navbarText' aria-expanded='false' aria-label='Toggle navigation')
+        span(class='')
+      div(class='' id='navbarText')
+        ul(class='')
+          //- Empty menu keeps the content that follows the
+          //- unordered list correctly positioned on the
+          //- right side of the navbar.
+        if locals.authenticated
+          span(class='') Welcome #{user.firstName}!
+          form(class='' action='/user/logout' method='post')
+            button(class='' type='submit') Logout
+        else
+          span(class='')
+            a(class='' href='/user/login') Login
+            a(class='' href='/user/register') Register
+            a(class="" href="/home") Demo User
+
     block content
