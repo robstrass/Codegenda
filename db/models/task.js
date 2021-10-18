@@ -1,9 +1,9 @@
 "use strict";
+
 module.exports = (sequelize, DataTypes) => {
   const Task = sequelize.define(
     "Task",
     {
-      id: DataTypes.INTEGER,
       name: DataTypes.STRING,
       content: DataTypes.TEXT,
       userId: DataTypes.INTEGER,
@@ -14,7 +14,15 @@ module.exports = (sequelize, DataTypes) => {
     {}
   );
   Task.associate = function (models) {
-    // associations can be defined here
+    Task.hasMany(models.Note, {
+      foreignKey: "taskId",
+    });
+    Task.belongsTo(models.Project, {
+      foreignKey: "projectId",
+    });
+    Task.belongsTo(models.User, {
+      foreignKey: "userId",
+    });
   };
   return Task;
 };
