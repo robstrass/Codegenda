@@ -11,7 +11,7 @@ router.get('/home', requireAuth, function(req, res, next) {
   if(requireAuth) {
     res.render('home')
   } else {
-    res.redirect('/login');
+    res.redirect('/login')
   }
 });
 
