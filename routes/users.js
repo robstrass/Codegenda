@@ -79,4 +79,18 @@ router.get("/login", csrfProtection, (req, res) => {
   res.render("login", { csrfToken: req.csrfToken(), errors });
 });
 
+router.post(
+  "/login",
+  csrfProtection,
+  asyncHandler(async (req, res) => {
+    const { username, password } = req.body;
+    const user = await db.User.findOne({ where: { username } });
+    const errors = [];
+    if (!user) {
+      errors.push("Couldn't find the username, would you like to sign up?");
+      res.render("signup", { csrfToken: req.csrfToken(), errors });
+    }
+  })
+);
+
 module.exports = router;
