@@ -9,6 +9,7 @@ const SequelizeStore = require("connect-session-sequelize")(session.Store);
 const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
 const { sessionSecret } = require("./config").db;
+const { restoreUser } = require('./auth');
 const app = express();
 
 // view engine setup
@@ -32,6 +33,7 @@ app.use(
   })
 );
 
+app.use(restoreUser)
 app.use("/users", usersRouter);
 // create Session table if it doesn't already exist
 store.sync();

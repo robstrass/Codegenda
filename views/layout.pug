@@ -19,5 +19,6 @@ html
           span(class='')
             a(class='' href='/users/login') Login
             a(class='' href='/users/signup') Sign Up!
-            a(class="button" id="demoButton" href="/users/home") Demo User
+            form(action='/users/' method='post')
+              button Demo User
       block content
