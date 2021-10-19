@@ -1,7 +1,7 @@
 extends layout.pug
 block content
     div This is a login form.
-    div(class="log-in-container")
+    div(cla ss="log-in-container")
         div(class="errors-container")
         ul
             each error in errors
@@ -16,5 +16,5 @@ block content
             label(for='password') Password
             input(type='password', name="password", placeholder='Password')
             br
-            button.loginbtn(type='submit') Log in
+            button.loginbtn(type='submit') Login
             a(href='/users/signup') Don't have an account? Sign up here!
