@@ -1,7 +1,7 @@
 const db = require('./db/models');
 
 const loginUser = (req, res, user) => {
-    req.session.auth = { userId: user.id }
+    req.session.auth = { userId: user.id };
 }
 
 const requireAuth = (req, res, next) => {
@@ -34,6 +34,8 @@ const restoreUser = async(req, res, next) => {
 
 const logoutUser = (req, res) => {
     delete req.session.auth;
+    res.clearCookie('_csrf');
+    res.clearCookie('connect.sid', {path: '/'});
 }
 
 module.exports = {
