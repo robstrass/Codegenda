@@ -38,7 +38,7 @@ const userValidators = [
     .withMessage("Please provide a password under 30 characters."),
 ];
 
-router.post("/", async (req, res) => {
+router.post("/", async(req, res) => {
   const demoUser = await db.User.findByPk(1);
   loginUser(req, res, demoUser);
   res.redirect(`/users/${demoUser.id}/home`);
@@ -65,20 +65,20 @@ router.post(
       loginUser(req, res, user);
       res.redirect(`/users/${user.id}/home`);
     } else {
-      const errors = validatorErrors.array().map((error) => error.message);
+      const errors = validatorErrors.array().map((error) => error.msg);
       res.render("signup", { csrfToken: req.csrfToken(), errors });
     }
   })
 );
 
 router.get("/:id(\\d+)/home", requireAuth, function (req, res, next) {
-  console.log("hit id route");
-  res.render("home");
+  const {userId} = req.session.auth;
+  // console.log("id", userId);
+  res.render("home", {userId});
 });
 
 router.get("/login", csrfProtection, (req, res) => {
   const errors = [];
-  console.log("this is the login route");
   res.render("login", { csrfToken: req.csrfToken(), errors });
 });
 

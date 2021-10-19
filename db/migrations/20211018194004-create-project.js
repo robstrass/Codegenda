@@ -22,7 +22,7 @@ module.exports = {
         type: Sequelize.INTEGER,
       },
       dueDate: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.DATE,
       },
       createdAt: {
         allowNull: false,

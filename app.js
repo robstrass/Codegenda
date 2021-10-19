@@ -10,7 +10,8 @@ const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
 const projectsRouter = require("./routes/projects");
 const { sessionSecret } = require("./config").db;
-const { restoreUser } = require("./auth");
+const { restoreUser, logoutUser, loginUser } = require("./auth");
+const db = require('./db/models');
 const app = express();
 
 // view engine setup
@@ -36,7 +37,7 @@ app.use(
 
 app.use(restoreUser);
 app.use("/users", usersRouter);
-app.use("/projects", projectsRouter);
+app.use("/users/:id/projects", projectsRouter);
 // create Session table if it doesn't already exist
 store.sync();
 
@@ -45,6 +46,12 @@ app.use("/", indexRouter);
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));
+});
+
+app.post("/", async (req, res) => {
+  const demoUser = await db.User.findByPk(1);
+  loginUser(req, res, demoUser);
+  res.redirect(`/users/${demoUser.id}/home`);
 });
 
 // error handler
