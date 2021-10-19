@@ -12,6 +12,8 @@ const { loginUser, requireAuth, restoreUser, logoutUser } = require("../auth");
 
 const router = express.Router();
 
+
+
 const userValidators = [
   check("email")
     .exists({ checkFalsy: true })
