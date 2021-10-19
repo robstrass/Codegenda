@@ -19,9 +19,12 @@ const projectValidation = [
 router.get(
   "/",
   asyncHandler(async (req, res) => {
+    console.log('we are in projects');
     const { username } = req.body;
     const projects = await db.Project.findAll({
-      include: [{ model: User, as: "user", attributes: ["username"] }],
+      where: {
+        userId: req.session.auth.userId
+      },
       order: [["createdAt"]],
       attributes: ["name"],
     });
@@ -38,7 +41,7 @@ router.post(
     const userId = req.session.auth.userId
     newProject.userId = userId;
     await newProject.save();
-    
+
 }));
 
 module.exports = router;

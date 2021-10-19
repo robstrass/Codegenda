@@ -3,19 +3,23 @@ block content
     div This is your homepage!
     div(class="container") Projects
         div(class="side-bar")
-            a(class="all-projects") Show Projects  
+            a(class="all-projects") Show Projects
         div(class="main-display") All Projects
-            form(action=`/users/${userId}/projects` method='post' class='project-form') 
+            form(action=`/users/${userId}/projects` method='post' class='project-form')
                 input(type="hidden" name='_csrf' value=csrfToken)
                 br
                 label(for='name') Project Name:
                 input(type="text" name='name' class="home-input" id="add-project-name" placeholder="Add a project" )
                 br
                 label(for='content') Content:
-                textarea(name="content" id='add-project-content' cols="30", rows="10") 
+                textarea(name="content" id='add-project-content' cols="30", rows="10")
                 br
-                label(for='dueDate') Due Date: 
+                label(for='dueDate') Due Date:
                 input(name='dueDate' type='date' id='add-project-date')
                 br
                 button(type="submit" class="home-btn" id="add-project-btn") add project
-    script(src="/javascripts/add-project.js") 
+            div(id="incomplete-projects-list")
+                //- ul
+                //-     each project in projects
+                //-         li
+    script(src="/javascripts/add-project.js")
