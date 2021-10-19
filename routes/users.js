@@ -41,7 +41,7 @@ const userValidators = [
 router.post("/", async (req, res) => {
   const demoUser = await db.User.findByPk(1);
   loginUser(req, res, demoUser);
-  res.redirect(`/${demoUser.id}/home`);
+  res.redirect(`/users/${demoUser.id}/home`);
 });
 
 router.get("/signup", csrfProtection, async (req, res) => {
@@ -63,7 +63,7 @@ router.post(
       const user = db.User.build({ email, username, hashedPassword });
       await user.save();
       loginUser(req, res, user);
-      res.redirect(`/${user.id}/home`);
+      res.redirect(`/users/${user.id}/home`);
     } else {
       const errors = validatorErrors.array().map((error) => error.message);
       res.render("signup", { csrfToken: req.csrfToken(), errors });
