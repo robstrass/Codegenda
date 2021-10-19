@@ -1,11 +1,23 @@
 const express = require("express");
 const router = express.Router();
-const { asyncHandler } = require("./utils");
+const { check, asyncHandler, csrfProtection, validationResult } = require("./utils");
 
 const db = require("../db/models");
 
+
+const projectValidation = [
+  check('name')
+    .exists({checkFalsy: true})
+    .withMessage('Please name your project.')
+    .isLength({max: 255})
+    .withMessage('Please make the project name less than 255 characters.'),
+  check('content')
+    .exists({checkFalsy: true})
+    .withMessage('Please provide content.')
+]
+
 router.get(
-  "/api/projects",
+  "/",
   asyncHandler(async (req, res) => {
     const { username } = req.body;
     const projects = await db.Project.findAll({
@@ -13,9 +25,20 @@ router.get(
       order: [["createdAt"]],
       attributes: ["name"],
     });
-    res.json({ projects });
+    res.json({projects});
   })
 );
-router.post("/api/projects", (req, res) => {});
+
+router.post(
+  "/",
+  projectValidation,
+  asyncHandler(async(req, res) => {
+    const { name, content, dueDate} = req.body
+    const newProject = await db.Project.build({name, content, dueDate});
+    const userId = req.session.auth.userId
+    newProject.userId = userId;
+    await newProject.save();
+})); 
 
 module.exports = router;
+
