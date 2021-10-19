@@ -49,12 +49,12 @@ router.post(
   userValidators,
   asyncHandler(async (req, res) => {
     const { email, username, password } = req.body;
-    const user = db.User.build({ email, username });
     const validatorErrors = validationResult(req);
 
     if (validatorErrors.isEmpty()) {
       const hashedPassword = await bcrypt.hash(password, 10);
-      user.hashedPassword = hashedPassword;
+      // user.hashedPassword = hashedPassword;
+      const user = db.User.build({ email, username, hashedPassword });
       await user.save();
       res.render("home");
     } else {
@@ -86,9 +86,23 @@ router.post(
     const { username, password } = req.body;
     const user = await db.User.findOne({ where: { username } });
     const errors = [];
+
     if (!user) {
       errors.push("Couldn't find the username, would you like to sign up?");
       res.render("signup", { csrfToken: req.csrfToken(), errors });
+    }
+
+    console.log('hashed', typeof user.hashedPassword)
+    console.log('hashed', user.hashedPassword)
+    console.log('hashed', typeof password)
+    console.log("pw", password)
+    const isPassword = await bcrypt.compare(password, user.hashedPassword.toString())
+    console.log('hashed obj', user.hashedPassword)
+    if (!isPassword) {
+      errors.push('Invalid password!');
+      res.render('login', { csrfToken: req.csrfToken(), errors });
+    } else {
+      res.render('home');
     }
   })
 );
