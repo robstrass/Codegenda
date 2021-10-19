@@ -38,6 +38,12 @@ const userValidators = [
     .withMessage("Please provide a password under 30 characters."),
 ];
 
+router.post('/', async(req, res) => {
+  const demoUser = await db.User.findByPk(1);
+  loginUser(req, res, demoUser)
+  res.redirect(`/${demoUser.id}/home`)
+});
+
 router.get("/signup", csrfProtection, async (req, res) => {
   const errors = [];
   res.render("signup", { csrfToken: req.csrfToken(), errors });
@@ -49,14 +55,15 @@ router.post(
   userValidators,
   asyncHandler(async (req, res) => {
     const { email, username, password } = req.body;
-    const user = db.User.build({ email, username });
     const validatorErrors = validationResult(req);
 
     if (validatorErrors.isEmpty()) {
       const hashedPassword = await bcrypt.hash(password, 10);
-      user.hashedPassword = hashedPassword;
+      // user.hashedPassword = hashedPassword;
+      const user = db.User.build({ email, username, hashedPassword });
       await user.save();
-      res.render("home");
+      loginUser(req, res, user)
+      res.redirect(`/${user.id}/home`);
     } else {
       const errors = validatorErrors.array().map((error) => error.message);
       res.render("signup", { csrfToken: req.csrfToken(), errors });
@@ -64,13 +71,8 @@ router.post(
   })
 );
 
-router.get("/home", requireAuth, function (req, res, next) {
-  if (requireAuth) {
-    res.render("home");
-  } else {
-    console.log("bye");
-    res.redirect("/login");
-  }
+router.get("/:id/home", requireAuth, function (req, res, next) {
+  res.render('home');
 });
 
 router.get("/login", csrfProtection, (req, res) => {
@@ -86,9 +88,22 @@ router.post(
     const { username, password } = req.body;
     const user = await db.User.findOne({ where: { username } });
     const errors = [];
+
     if (!user) {
       errors.push("Couldn't find the username, would you like to sign up?");
       res.render("signup", { csrfToken: req.csrfToken(), errors });
+    }
+
+    const isPassword = await bcrypt.compare(password, user.hashedPassword.toString())
+
+    if (!isPassword) {
+      errors.push('Invalid password!');
+      res.render('login', { csrfToken: req.csrfToken(), errors });
+    } else {
+      console.log('sess user', req.session)
+      loginUser(req, res, user)
+      // req.session.user = { username: user.username, userId: user.id };
+      res.redirect(`/${user.id}/home`);
     }
   })
 );
