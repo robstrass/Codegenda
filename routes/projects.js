@@ -38,7 +38,7 @@ router.post(
     const userId = req.session.auth.userId
     newProject.userId = userId;
     await newProject.save();
-})); 
+    
+}));
 
 module.exports = router;
-

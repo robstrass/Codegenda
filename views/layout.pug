@@ -13,7 +13,7 @@ html
         if locals.authenticated
           span(class='') Welcome #{user.firstName}!
           form(class='' action='/users/logout' method='post')
-            button(class='' type='submit') Logout
+            button(class='' href='/' type='submit') Logout
         else
           span(class='')
             a(class='' href='/users/login') Login
