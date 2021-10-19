@@ -7,6 +7,7 @@ module.exports = {
     database,
     host,
     dialect: "postgres",
-    seederStorage: 'sequelize',
+    seederStorage: "sequelize",
+    logging: false,
   },
 };
