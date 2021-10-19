@@ -56,7 +56,7 @@ router.post(
       // user.hashedPassword = hashedPassword;
       const user = db.User.build({ email, username, hashedPassword });
       await user.save();
-      res.render("home");
+      res.redirect(`/${user.id}/home`);
     } else {
       const errors = validatorErrors.array().map((error) => error.message);
       res.render("signup", { csrfToken: req.csrfToken(), errors });
@@ -64,7 +64,7 @@ router.post(
   })
 );
 
-router.get("/home", requireAuth, function (req, res, next) {
+router.get("/:id/home", requireAuth, function (req, res, next) {
   if (requireAuth) {
     res.render("home");
   } else {
@@ -92,17 +92,15 @@ router.post(
       res.render("signup", { csrfToken: req.csrfToken(), errors });
     }
 
-    console.log('hashed', typeof user.hashedPassword)
-    console.log('hashed', user.hashedPassword)
-    console.log('hashed', typeof password)
-    console.log("pw", password)
     const isPassword = await bcrypt.compare(password, user.hashedPassword.toString())
-    console.log('hashed obj', user.hashedPassword)
+
     if (!isPassword) {
       errors.push('Invalid password!');
       res.render('login', { csrfToken: req.csrfToken(), errors });
     } else {
-      res.render('home');
+      console.log('sess user', req.session)
+      req.session.user = { username: user.username, userId: user.id };
+      res.redirect(`/${user.id}/home`);
     }
   })
 );
