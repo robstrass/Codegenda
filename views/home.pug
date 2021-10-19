@@ -1,3 +1,10 @@
 extends layout.pug
 block content
     div This is your homepage!
+    div(class="container") Projects
+        div(class="side-bar")
+            a(class="all-projects") Show Projects  
+        div(class="main-display") All Projects
+            input(type="text" class="home-input" id="add-project-input" placeholder="Add a project")
+            button(type="submit" class="home-btn" id="add-project-btn") add project
+    script(src="/javascripts/add-project.js") 
