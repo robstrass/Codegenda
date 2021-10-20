@@ -41,6 +41,15 @@ router.post(
     const userId = req.session.auth.userId
     newProject.userId = userId;
     await newProject.save();
+    
+    const projects = await db.Project.findAll({
+      where: {
+        userId: req.session.auth.userId
+      },
+      order: [["createdAt"]],
+      attributes: ["name"],
+    });
+    res.json({projects});
 }));
 
 module.exports = router;
