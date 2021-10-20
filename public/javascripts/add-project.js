@@ -4,9 +4,6 @@ const dueDate = document.getElementById("add-project-date");
 const mainDisplay = document.querySelector(".main-display");
 const form = document.querySelector(".project-form");
 
-
-// window.onload("load")
-
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
   const formData = new FormData(form);
@@ -23,7 +20,7 @@ form.addEventListener("submit", async (e) => {
       },
     });
   } catch (e) {
-    if (err.status == 401) {
+    if (e.status == 401) {
       window.location.href = "/users/login";
     }
   }
@@ -43,5 +40,3 @@ addBtn.addEventListener("click", async (e) => {
     // projectName.value= "";
   }
 });
-
-

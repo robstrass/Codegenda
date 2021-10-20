@@ -30,7 +30,7 @@ router.get(
         userId: req.session.auth.userId,
       },
       order: [["createdAt"]],
-      attributes: ["name"],
+      attributes: ["name", "content", "dueDate"],
     });
     res.json({ projects });
   })
