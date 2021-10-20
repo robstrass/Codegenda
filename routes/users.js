@@ -86,6 +86,7 @@ router.get("/:id(\\d+)/home", requireAuth, function (req, res, next) {
   const {userId} = req.session.auth;
   // console.log("id", userId);
   res.render("home", {userId});
+
 });
 
 router.get("/login", csrfProtection, (req, res) => {
@@ -125,4 +126,6 @@ router.post("/logout", (req, res) => {
   logoutUser(req, res);
   res.redirect("/");
 });
+
+
 module.exports = router;
