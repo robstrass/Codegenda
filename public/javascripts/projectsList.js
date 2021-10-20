@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", async (e) => {
   try {
-    const res = await fetch("http://localhost:8080/projects", {
+    const res = await fetch("https://codegenda.herokuapp.com/projects", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
