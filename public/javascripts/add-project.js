@@ -12,7 +12,7 @@ form.addEventListener("submit", async (e) => {
   const dueDate = formData.get("dueDate");
   const body = { name, content, dueDate };
   try {
-    const projects = await fetch("https://codegenda.herokuapp.com/projects", {
+    const projects = await fetch("/projects", {
       method: "POST",
       body: JSON.stringify(body),
       headers: {
