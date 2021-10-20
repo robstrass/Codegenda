@@ -14,10 +14,10 @@ document.addEventListener("DOMContentLoaded", async (e) => {
     const incompleteProjects = document.querySelector(
       "#incomplete-projects-list"
     );
-    console.log("I'm hitting it");
+    console.log(incompleteProjects);
     console.log(projects);
     const newArr = projects.map(({ name, dueDate, id }) => {
-      `<div class="project-name" id="project-${id}">${name}
+      return `<div class="project-name" id="project-${id}">${name}
             <div class="project-dueDate" id="dueDate">${dueDate}</div></div>`;
     });
     console.log(newArr);

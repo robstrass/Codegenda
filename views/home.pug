@@ -1,10 +1,9 @@
 extends layout.pug
 block content
-    div This is your homepage!
+    div 
     div(class="container") Projects
         div(class="side-bar")
-            a(class="all-projects") Show Projects
-        div(class="main-display") All Projects
+        div(class="main-display")
             form(class='project-form')
                 input(type="hidden" name='_csrf' value=csrfToken)
                 br
