@@ -33,6 +33,16 @@ const userValidators = [
     .withMessage("Please provide a password")
     .isLength({ min: 8 })
     .withMessage("Password needs to be at least 8 characters."),
+  check("confirmPassword")
+    .exists({checkFalsy: true})
+    .withMessage("Please type in the same password")
+    .custom((value, {req}) => {
+      if(value !== req.body.password) {
+        return Promise.reject(
+          "The passwords do not match."
+        ); 
+      } 
+    }),
   check("username")
     .exists({ checkFalsy: true })
     .withMessage("Please provide a username")
@@ -107,7 +117,6 @@ router.post(
       res.render("login", { csrfToken: req.csrfToken(), errors });
     } else {
       loginUser(req, res, user);
-      // req.session.user = { username: user.username, userId: user.id };
       res.redirect(`/users/${user.id}/home`);
     }
   })
