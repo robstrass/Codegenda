@@ -86,8 +86,23 @@ router.get("/:id(\\d+)/home", requireAuth, function (req, res, next) {
   const {userId} = req.session.auth;
   // console.log("id", userId);
   res.render("home", {userId});
-});
 
+});
+// router.get(
+//   "/",
+//   asyncHandler(async (req, res) => {
+//     console.log("we are in projects");
+//     const { username } = req.body;
+//     const projects = await db.Project.findAll({
+//       where: {
+//         userId: req.session.auth.userId,
+//       },
+//       order: [["createdAt"]],
+//       attributes: ["name"],
+//     });
+//     res.json({ projects });
+//   })
+// );
 router.get("/login", csrfProtection, (req, res) => {
   const errors = [];
   res.render("login", { csrfToken: req.csrfToken(), errors });
@@ -125,4 +140,6 @@ router.post("/logout", (req, res) => {
   logoutUser(req, res);
   res.redirect("/");
 });
+
+
 module.exports = router;
