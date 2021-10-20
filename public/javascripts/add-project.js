@@ -30,6 +30,7 @@ addBtn.addEventListener("click", async (e) => {
   if (projectName.value) {
     const newDiv = document.createElement("div");
     const subDiv = document.createElement("div");
+    const editBtn = document.createElement("a")
     newDiv.innerText = projectName.value;
     if (dueDate.value) {
       subDiv.innerText = dueDate.value;

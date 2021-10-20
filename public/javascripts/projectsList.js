@@ -14,13 +14,24 @@ document.addEventListener("DOMContentLoaded", async (e) => {
     const incompleteProjects = document.querySelector(
       "#incomplete-projects-list"
     );
-    console.log(incompleteProjects);
-    console.log(projects);
+    // console.log(incompleteProjects);
+    // console.log(projects);
+    console.log('id', projects[1])
     const newArr = projects.map(({ name, dueDate, id }) => {
       return `<div class="project-name" id="project-${id}">${name}
             <div class="project-dueDate" id="dueDate">${dueDate}</div></div>`;
     });
-    console.log(newArr);
+    // console.log(newArr);
     incompleteProjects.innerHTML = newArr.join("");
   } catch (e) {}
+
+  // grabs individual projects
+  const allProjects = document.querySelectorAll('.project-name');
+
+    console.log('testing loader', allProjects)
+    allProjects.forEach(project => {
+        project.addEventListener('click', async(e) => {
+            const 
+        });
+    })
 });

@@ -30,7 +30,7 @@ router.get(
         userId: req.session.auth.userId,
       },
       order: [["createdAt"]],
-      attributes: ["name", "content", "dueDate"],
+      attributes: ["name", "content", "dueDate", "id"],
     });
     res.json({ projects });
   })
@@ -47,5 +47,26 @@ router.post(
     await newProject.save();
   })
 );
+
+router.put('/:id(\\d+)',
+  projectValidation,
+  asyncHandler(async (req, res, next) => {
+    // grab id from params, destructure updated project fields from req.body
+    const { id } = req.params.id;
+    const { name, content, dueDate } = req.body
+    const project = await db.Project.findByPk(id);
+    const err = new Error('Project not found!');
+    if (project) {
+      await project.update({
+        name,
+        content,
+        dueDate
+      })
+
+      res.json({ project });
+    } else {
+      next(err);
+    }
+  }));
 
 module.exports = router;

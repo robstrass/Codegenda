@@ -1,6 +1,6 @@
 extends layout.pug
 block content
-    div 
+    div
     div(class="container") Projects
         div(class="side-bar")
         div(class="main-display")
@@ -18,8 +18,7 @@ block content
                 br
                 button(type="submit" class="home-btn" id="add-project-btn") add project
             div(id="incomplete-projects-list")
-                //- ul
-                //-     each project in projects
-                //-         li
-    script(src="/javascripts/projectsList.js")             
+    div(id="single-project") Project Name Placeholder
+    script(src="/javascripts/projectsList.js")
     script(src="/javascripts/add-project.js")
+    script(src="/javascripts/project-display.js")
