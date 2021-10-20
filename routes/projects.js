@@ -48,11 +48,18 @@ router.post(
   })
 );
 
+router.get('/:id(\\d+)',
+  asyncHandler(async (req, res) => {
+    const id = req.params.id;
+    const project = await db.Project.findByPk(id);
+    res.json({ project });
+  }));
+
 router.put('/:id(\\d+)',
   projectValidation,
   asyncHandler(async (req, res, next) => {
     // grab id from params, destructure updated project fields from req.body
-    const { id } = req.params.id;
+    const id = req.params.id;
     const { name, content, dueDate } = req.body
     const project = await db.Project.findByPk(id);
     const err = new Error('Project not found!');

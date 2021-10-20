@@ -31,7 +31,30 @@ document.addEventListener("DOMContentLoaded", async (e) => {
     console.log('testing loader', allProjects)
     allProjects.forEach(project => {
         project.addEventListener('click', async(e) => {
-            const 
+            const id = project.id.split('-')[1];
+
+            try {
+                const res = await fetch(`/projects/${id}`, {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                });
+
+                if (res.status === 401) {
+                    window.location.href("users/login");
+                    return;
+                }
+
+                const { project } = await res.json();
+                const singleProjectDiv = document.querySelector('#single-project');
+                console.log('single project ready to mingle', project)
+                const { name, content, dueDate } = project;
+                singleProjectDiv.innerHTML = '';
+                singleProjectDiv.innerHTML = `<div>${name}</div><div>${content}</div><div>${dueDate}</div>`
+            } catch (e) {
+
+            }
         });
     })
 });
