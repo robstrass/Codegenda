@@ -3,21 +3,22 @@ html
   head
       block head
         title="Codegenda"
-        link(rel='stylesheet' href='/stylesheets/reset.css')
+        link(rel='stylesheet' href='/stylesheets/index.css')
   body
-    nav(class="nav-bar")
-      a(class="brand" href="/") CodeGenda
-        span(class='')
-      div(class='' id='navbarText')
-        ul(class='')
+      nav(class="nav-bar")
+        a(class="brand nav-link" href="/") CodeGenda
         if locals.authenticated
-          span(class='') Welcome #{user.firstName}!
-          form(class='' action='/users/logout' method='post')
-            button(class='' href='/' type='submit') Logout
+          div(class='rightBtn') Welcome #{user.firstName}!
+            form(class='' action='/users/logout' method='post')
+              button(class='' href='/' type='submit') Logout
         else
-          span(class='')
-            a(class='' href='/users/login') Login
-            a(class='' href='/users/signup') Sign Up!
+          div(class='rightBtn')
+            a(class='nav-link' href='/users/login') Login
+            a(class='nav-link' href='/users/signup') Sign Up!
             form(action='/users/' method='post')
-              button Demo User
-      block content
+              button.navBarLoginBtn Demo User
+      div.wrapper
+        div.sideBar 
+        div.mainContent 
+          block content
+        div.sideBar 
