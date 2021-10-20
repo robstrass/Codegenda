@@ -37,11 +37,10 @@ const userValidators = [
     .exists({checkFalsy: true})
     .withMessage("Please type in the same password")
     .custom((value, {req}) => {
+      console.log("password",req.body.password, value)
       if(value !== req.body.password) {
-        return Promise.reject(
-          "The passwords do not match."
-        ); 
-      } 
+         throw new Error("The passwords do not match."); 
+      } return true;
     }),
   check("username")
     .exists({ checkFalsy: true })
@@ -71,13 +70,13 @@ router.post(
 
     if (validatorErrors.isEmpty()) {
       const hashedPassword = await bcrypt.hash(password, 10);
-      // user.hashedPassword = hashedPassword;
       const user = db.User.build({ email, username, hashedPassword });
       await user.save();
       loginUser(req, res, user);
       res.redirect(`/users/${user.id}/home`);
     } else {
-      const errors = validatorErrors.array().map((error) => error.msg);
+      let errors = validatorErrors.array().map((error) => error.msg);
+      errors = errors.filter((msg)=> msg !== 'Invalid value')
       res.render("signup", { csrfToken: req.csrfToken(), errors });
     }
   })

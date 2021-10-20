@@ -5,7 +5,7 @@ block content
         div(class="side-bar")
             a(class="all-projects") Show Projects
         div(class="main-display") All Projects
-            form(action=`/users/${userId}/projects` method='post' class='project-form')
+            form(action=`/projects` method='post' class='project-form')
                 input(type="hidden" name='_csrf' value=csrfToken)
                 br
                 label(for='name') Project Name:
