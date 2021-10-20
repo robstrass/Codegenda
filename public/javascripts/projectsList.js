@@ -29,7 +29,9 @@ document.addEventListener("DOMContentLoaded", async (e) => {
   const allProjects = document.querySelectorAll('.project-name');
 
     console.log('testing loader', allProjects)
-    allProjects.forEach(project => {
+
+
+    const addEventListenerToProject = project => {
         project.addEventListener('click', async(e) => {
             const id = project.id.split('-')[1];
 
@@ -56,5 +58,8 @@ document.addEventListener("DOMContentLoaded", async (e) => {
 
             }
         });
+    }
+    allProjects.forEach(project => {
+        addEventListenerToProject(project);
     })
 });

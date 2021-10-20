@@ -44,7 +44,9 @@ router.post(
     const newProject = await db.Project.build({ name, content, dueDate });
     const userId = req.session.auth.userId;
     newProject.userId = userId;
-    await newProject.save();
+    const saved = await newProject.save();
+    // console.log('test', newProject);
+    res.json(newProject);
   })
 );
 
