@@ -10,11 +10,14 @@ block content
         form(class="log-in-form" action='/users/login' method="POST")
             input(type="hidden" name='_csrf' value=csrfToken)
             br
-            label(for='username') Username
+            label(for='username') Username:
             input(type='text' name='username' placeholder="Username")
             br
-            label(for='password') Password
+            label(for='password') Password:
             input(type='password', name="password", placeholder='Password')
+            br
+            label(for='confirmPassowrd') Confirm Password:
+            input(type='password' name='confirmPassword' placeholder='Please type in the same password as above')
             br
             button.loginbtn(type='submit') Login
             a(href='/users/signup') Don't have an account? Sign up here!
