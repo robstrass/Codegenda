@@ -102,7 +102,8 @@ router.get("/:id(\\d+)/home", requireAuth, function (req, res, next) {
 //     });
 //     res.json({ projects });
 //   })
-// );
+// ); 
+
 router.get("/login", csrfProtection, (req, res) => {
   const errors = [];
   res.render("login", { csrfToken: req.csrfToken(), errors });
