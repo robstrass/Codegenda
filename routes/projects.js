@@ -79,4 +79,9 @@ router.put('/:id(\\d+)',
         }
     }));
 
+router.delete('/:id(\\d+)', asyncHandler(async(req, res) => {
+    const id = req.params.id;
+    console.log(id);
+}))
+
 module.exports = router;
