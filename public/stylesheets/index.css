@@ -138,3 +138,34 @@ div > h1 {
   border-radius: 5px;
   background-color: transparent;
 }
+
+/* sign up page */
+.sign-up-container {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+  margin: 30px;
+  background-color: white;
+  color: black;
+  padding: 30px;
+  border-radius: 20px;
+}
+
+.sign-up-container > h2 {
+  font-weight: 200;
+  padding-top: 0px;
+}
+.sign-up-input {
+  margin: 0.3rem;
+}
+
+.sign-up-btn {
+  display: flex;
+  color: #fff;
+  background-color: #009dff;
+  border-color: transparent;
+  padding: 1px 6px;
+  border-radius: 4px;
+}
