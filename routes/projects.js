@@ -81,7 +81,8 @@ router.put('/:id(\\d+)',
 
 router.delete('/:id(\\d+)', asyncHandler(async(req, res) => {
     const id = req.params.id;
-    console.log(id);
+    const project = await db.Project.findByPk(id)
+    await project.destroy();
 }))
 
 module.exports = router;
