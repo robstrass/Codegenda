@@ -1,3 +1,6 @@
-window.addEventListener("load", (event)=>{
-    console.log("hello from javascript!")
-})
+const codegendaHome = document.querySelector('.brand');
+codegendaHome.addEventListener('click', async (e) => {
+    try{
+        
+    } catch (e) {}
+});
