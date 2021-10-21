@@ -1,6 +1,6 @@
 extends layout.pug
 block content
-    div(cla ss="log-in-container")
+    div(class="log-in-container")
         div(class="errors-container")
         ul
             each error in errors
@@ -9,11 +9,11 @@ block content
         form(class="log-in-form" action='/users/login' method="POST")
             input(type="hidden" name='_csrf' value=csrfToken)
             br
-            label(for='username') Username:
-            input(type='text' name='username' placeholder="Username")
+            label(for='username')
+            input(type='text' name='username' placeholder="Username" class="sign-up-input")
             br
-            label(for='password') Password:
-            input(type='password', name="password", placeholder='Password')
+            label(for='password')
+            input(type='password', name="password", placeholder='Password' class="sign-up-input")
             br
             button.loginbtn(type='submit') Login
             a(href='/users/signup') Don't have an account? Sign up here!
