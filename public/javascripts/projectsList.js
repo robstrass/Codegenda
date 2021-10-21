@@ -49,7 +49,7 @@ document.addEventListener("DOMContentLoaded", async(e) => {
                 const singleProjectDiv = document.querySelector('#single-project');
                 const { name, content, dueDate } = project;
                 singleProjectDiv.innerHTML = '';
-                singleProjectDiv.innerHTML = `<div>${name}</div><div>${content}</div><div>${dueDate}</div><button id="edit-${id}">Edit</button><button id="delete-${id}">Delete</button>`
+                singleProjectDiv.innerHTML = `<div>${name}</div><div>${content}</div><div>${dueDate}</div><button class="project-edit" id="edit-${id}">Edit</button><button class="project-delete" id="delete-${id}">Delete</button>`
             } catch (e) {
 
             }
