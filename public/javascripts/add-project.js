@@ -71,8 +71,9 @@ addBtn.addEventListener("click", async (e) => {
     const subDiv = document.createElement("div");
     // const editBtn = document.createElement("a")
     newDiv.innerText = projectName.value;
-    if (dueDate.value) {
-      subDiv.innerText = dueDate.value;
+    console.log(dueDate);
+    if (dueDate) {
+      subDiv.innerText = dueDate;
     }
     incompleteProjects.appendChild(newDiv);
     newDiv.appendChild(subDiv);

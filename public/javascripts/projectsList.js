@@ -120,8 +120,9 @@ document.addEventListener("DOMContentLoaded", async (e) => {
                     prevContent.innerHTML = contentValue;
                   }
                   if (dateValue) {
+                    console.log(mainDisplayDueDate);
                     prevDate.innerHTML = dateValue;
-                    mainDisplayDueDate.innerHTML = dateValue;
+                    mainDisplayDueDate.innerText = dateValue;
                   }
                   const name = nameValue;
                   const content = contentValue;
