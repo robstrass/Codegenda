@@ -82,11 +82,11 @@ router.post(
     })
 );
 
-router.get("/:id(\\d+)/home", requireAuth, function(req, res, next) {
+router.get("/:id(\\d+)/home", requireAuth, async(req, res, next) => {
     const { userId } = req.session.auth;
-    // console.log("id", userId);
-    res.render("home", { userId });
-
+    const user = await db.User.findByPk(userId);
+    // console.log(user);
+    res.render("home", { userId, user });
 });
 
 router.get("/login", csrfProtection, (req, res) => {
