@@ -123,6 +123,21 @@ document.addEventListener("DOMContentLoaded", async (e) => {
                     prevDate.innerHTML = dateValue;
                     mainDisplayDueDate.innerHTML = dateValue;
                   }
+                  const name = nameValue;
+                  const content = contentValue;
+                  const dueDate = dateValue;
+                  const body = { name, content, dueDate };
+                  const res = await fetch(`/projects/${id}`, {
+                    method: "PUT",
+                    headers: {
+                      "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(body),
+                  });
+                  if (res.status === 401) {
+                    window.location.href("users/login");
+                    return;
+                  }
                 }
               });
             }
