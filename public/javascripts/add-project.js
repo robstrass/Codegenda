@@ -38,7 +38,7 @@ const formFunc = async() => {
 // helper function to add event listener to project
 const addEventListenerToProject = (project) => {
     project.addEventListener("click", async(e) => {
-        const id = project.id.split("-")[1];
+        const id = project.id.split("-")[2];
 
         try {
             const res = await fetch(`/projects/${id}`, {
@@ -89,6 +89,6 @@ addBtn.addEventListener("click", async(e) => {
         mainProjectContainer.appendChild(dateDiv);
         // dueDate.value= "";
         // projectName.value= "";
-        addEventListenerToProject(newDiv);
+        addEventListenerToProject(mainProjectContainer);
     }
 });
