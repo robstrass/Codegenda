@@ -7,17 +7,18 @@ const deleteButtonFunctionality = (id) => {
             );
             const mainListProject = document.querySelector(`#project-${id}`);
             const selectedProject = document.querySelector("#single-project-holder");
+            const singleProject = document.querySelector("#single-project");
             const mainProjectDueDate = document.querySelector(`#dueDate-${id}`);
-            // mainListProject.remove();
             selectedProject.remove();
-            // mainProjectDueDate.remove();
             mainProjectHolder.remove();
+            singleProject.remove();
             const res = await fetch(`/projects/${id}`, {
                 method: "DELETE",
             });
         } catch (e) {}
     });
 };
+
 const editButtonFunctionality = (id) => {
     const editBtn = document.querySelector(".project-edit");
     editBtn.addEventListener("click", async(e) => {
