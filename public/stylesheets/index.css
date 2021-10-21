@@ -1,18 +1,30 @@
 @import url("https://fonts.googleapis.com/css2?family=MuseoModerno:wght@100;200;300;400;500;600;700;800;900&display=swap");
 body {
   font-family: "MuseoModerno", cursive;
+  margin: 0px;
+  background-color: #0060bf;
 }
 
-h1 {
-  color: #555555;
+div > h1 {
+  padding-top: 3%;
+  color: white;
+  font-size: 45px;
 }
 
 .nav-bar {
-  background-color: rgb(68, 68, 247);
+  padding: 20px;
+
+  background-color: #0060bf;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
   height: 40px;
+  border-left: transparent;
+  border-right: transparent;
+  border-top: transparent;
+  border-bottom: rgba(179, 179, 179, 0.2);
+  border-style: solid;
+  border-width: 0.5px;
 }
 
 .rightBtn {
@@ -29,9 +41,10 @@ h1 {
   height: 100%;
 }
 
-.brand {
+.brand.nav-link {
   display: flex;
   align-items: space-around;
+  font-size: 25px;
 }
 .mainContent {
   display: flex;
@@ -55,10 +68,57 @@ h1 {
   outline: none;
   padding: 4px 11px;
   margin-left: 21px;
-  border: 2px solid;
+  border: 1px solid;
   margin-top: -1px;
   padding: 4px 11px;
-  font-weight: 700 !important;
+  font-weight: 200;
   font-size: 15px;
-  color: black;
+  color: ghostwhite;
+  border-radius: 5px;
+  background-color: transparent;
+}
+
+/* home page */
+
+.home-img {
+  height: 30rem;
+}
+
+.sign-up-home {
+  padding: 11px 32px 12px;
+  line-height: 1.2;
+  background-color: #d24b03;
+  color: white;
+  font-size: 23px;
+  border-radius: 4px;
+  height: 50px;
+  width: 200px;
+  border-color: transparent;
+  text-align: center;
+}
+
+.sign-up-home > a {
+  text-decoration: none;
+  color: white;
+}
+
+.description-home-container {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-content: center;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.description-home-container > h3 {
+  font-size: 1.5rem;
+  color: white;
+  margin-bottom: 0px;
+}
+
+.description-home-container > p {
+  margin-top: 5px;
+  color: white;
+  margin-bottom: 5rem;
 }
