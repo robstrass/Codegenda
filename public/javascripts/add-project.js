@@ -5,6 +5,7 @@ const mainDisplay = document.querySelector(".main-display");
 const form = document.querySelector(".project-form");
 const incompleteProjects = document.querySelector('#incomplete-projects-list')
 
+
 // helper function: post project to database &
 // return json data for projects
 const formFunc = async() => {
@@ -53,7 +54,7 @@ const addEventListenerToProject = project => {
             const singleProjectDiv = document.querySelector('#single-project');
             const { name, content, dueDate } = project;
             singleProjectDiv.innerHTML = '';
-            singleProjectDiv.innerHTML = `<div>${name}Hi</div><div>${content}</div><div>${dueDate}</div><button id="edit-${id}">Edit</button><button id="delete-${id}">Delete</button>`
+            singleProjectDiv.innerHTML = `<div id="single-project-holder"><div>${name}Hi</div><div>${content}</div><div>${dueDate}</div><button class="project-edit" id="edit-${id}">Edit</button><button class="project-delete" id="delete-${id}">Delete</button></div>`
 
         } catch (e) {
 

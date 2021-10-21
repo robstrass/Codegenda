@@ -45,17 +45,28 @@ document.addEventListener("DOMContentLoaded", async(e) => {
                 }
 
                 const { project } = await res.json();
-                console.log(project)
                 const singleProjectDiv = document.querySelector('#single-project');
                 const { name, content, dueDate } = project;
                 singleProjectDiv.innerHTML = '';
-                singleProjectDiv.innerHTML = `<div>${name}</div><div>${content}</div><div>${dueDate}</div><button id="edit-${id}">Edit</button><button id="delete-${id}">Delete</button>`
-            } catch (e) {
-
-            }
+                singleProjectDiv.innerHTML = `<div id="single-project-holder"><div>${name}</div><div>${content}</div><div>${dueDate}</div><button class="project-edit" id="edit-${id}">Edit</button><button class="project-delete" id="delete-${id}">Delete</button></div>`
+                    //Selectint the delete button upon viewing a project to allow delete button functionality
+                const deleteButton = document.querySelector('.project-delete');
+                deleteButton.addEventListener("click", async(e) => {
+                    try {
+                        const mainListProject = document.querySelector(`#project-${id}`);
+                        const selectedProject = document.querySelector('#single-project-holder');
+                        mainListProject.remove();
+                        selectedProject.remove();
+                        const res = await fetch(`/projects/${id}`, {
+                            method: "DELETE",
+                        });
+                    } catch (e) {}
+                })
+            } catch (e) {}
         });
     }
     allProjects.forEach(project => {
         addEventListenerToProject(project);
+
     })
 });
