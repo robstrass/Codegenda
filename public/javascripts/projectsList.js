@@ -36,9 +36,8 @@ document.addEventListener("DOMContentLoaded", async(e) => {
             "#incomplete-projects-list"
         );
         // console.log(incompleteProjects);
-        // console.log(projects);
         const newArr = projects.map(({ name, dueDate, id }) => {
-            newDueDate = dueDate.split("T")[0];
+            let newDueDate = dueDate.split("T")[0];
             return `<div id="project-container-${id}"><div class="project-name" id="project-${id}">${name}
             </div><div class="project-dueDate" id="dueDate-${id}">${newDueDate}</div></div>`;
         });
