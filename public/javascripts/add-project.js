@@ -1,3 +1,8 @@
+import {
+    deleteButtonFunctionality,
+    editButtonFunctionality,
+} from "./projectsList.js";
+
 const addBtn = document.getElementById("add-project-btn");
 const projectName = document.getElementById("add-project-name");
 const dueDate = document.getElementById("add-project-date");
@@ -7,78 +12,83 @@ const incompleteProjects = document.querySelector("#incomplete-projects-list");
 
 // helper function: post project to database &
 // return json data for projects
-const formFunc = async () => {
-  const formData = new FormData(form);
-  const name = formData.get("name");
-  const content = formData.get("content");
-  const dueDate = formData.get("dueDate");
-  const body = { name, content, dueDate };
-  try {
-    const res = await fetch("/projects", {
-      method: "POST",
-      body: JSON.stringify(body),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    const newProject = await res.json();
-    // console.log('hello from new proj', newProject)
-    return newProject;
-  } catch (e) {
-    if (e.status == 401) {
-      window.location.href = "/users/login";
+const formFunc = async() => {
+    const formData = new FormData(form);
+    const name = formData.get("name");
+    const content = formData.get("content");
+    const dueDate = formData.get("dueDate");
+    const body = { name, content, dueDate };
+    try {
+        const res = await fetch("/projects", {
+            method: "POST",
+            body: JSON.stringify(body),
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
+        const newProject = await res.json();
+        return newProject;
+    } catch (e) {
+        if (e.status == 401) {
+            window.location.href = "/users/login";
+        }
     }
-  }
 };
 
 // helper function to add event listener to project
 const addEventListenerToProject = (project) => {
-  project.addEventListener("click", async (e) => {
-    const id = project.id.split("-")[1];
+    project.addEventListener("click", async(e) => {
+        const id = project.id.split("-")[1];
 
-    try {
-      const res = await fetch(`/projects/${id}`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+        try {
+            const res = await fetch(`/projects/${id}`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            });
 
-      if (res.status === 401) {
-        window.location.href("users/login");
-        return;
-      }
+            if (res.status === 401) {
+                window.location.href("users/login");
+                return;
+            }
 
-      const { project } = await res.json();
-      const singleProjectDiv = document.querySelector("#single-project");
-      const { name, content, dueDate } = project;
-      singleProjectDiv.innerHTML = "";
-      singleProjectDiv.innerHTML = `<div id="single-project-holder"><div id="single-project-name-${id}">${name}</div><div id="single-project-content-${id}">${content}</div><div id="single-project-dueDate-${id}">${dueDate}</div><button class="project-edit" id="edit-${id}">Edit</button><button class="project-delete" id="delete-${id}">Delete</button></div>`;
-    } catch (e) {}
-  });
+            const { project } = await res.json();
+            const singleProjectDiv = document.querySelector("#single-project");
+            const { name, content, dueDate } = project;
+            let newDueDate = dueDate.split("T")[0];
+            singleProjectDiv.innerHTML = "";
+            singleProjectDiv.innerHTML = `<div id="single-project-holder"><div id="single-project-name-${id}">${name}</div><div id="single-project-content-${id}">${content}</div><div id="single-project-dueDate-${id}">${newDueDate}</div><button class="project-edit" id="edit-${id}">Edit</button><button class="project-delete" id="delete-${id}">Delete</button></div>`;
+            deleteButtonFunctionality(id);
+            editButtonFunctionality(id);
+            console.log("did it edit?");
+        } catch (e) {}
+    });
 };
 
 // actual event listener to create the divs to display on screen
-addBtn.addEventListener("click", async (e) => {
-  const returnVal = await formFunc();
-  console.log(returnVal);
+addBtn.addEventListener("click", async(e) => {
+    const returnVal = await formFunc();
 
-  const { id, name, content, dueDate } = returnVal;
-  if (projectName.value) {
-    const newDiv = document.createElement("div");
-    newDiv.className = "project-name";
-    newDiv.id = `project-${id}`;
-    const subDiv = document.createElement("div");
-    // const editBtn = document.createElement("a")
-    newDiv.innerText = projectName.value;
-    console.log(dueDate);
-    if (dueDate) {
-      subDiv.innerText = dueDate;
+    const { id, name, content, dueDate } = returnVal;
+    if (projectName.value) {
+        const mainProjectContainer = document.createElement("div");
+        mainProjectContainer.id = `project-container-${id}`;
+        incompleteProjects.appendChild(mainProjectContainer);
+        const newDiv = document.createElement("div");
+        newDiv.className = "project-name";
+        newDiv.id = `project-${id}`;
+        const dateDiv = document.createElement("div");
+        // const editBtn = document.createElement("a")
+        newDiv.innerText = projectName.value;
+        let newDueDate = dueDate.split("T")[0];
+        if (newDueDate) {
+            dateDiv.innerText = newDueDate;
+        }
+        mainProjectContainer.appendChild(newDiv);
+        mainProjectContainer.appendChild(dateDiv);
+        // dueDate.value= "";
+        // projectName.value= "";
+        addEventListenerToProject(newDiv);
     }
-    incompleteProjects.appendChild(newDiv);
-    newDiv.appendChild(subDiv);
-    // dueDate.value= "";
-    // projectName.value= "";
-    addEventListenerToProject(newDiv);
-  }
 });
