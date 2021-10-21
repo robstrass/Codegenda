@@ -11,7 +11,7 @@ const usersRouter = require("./routes/users");
 const projectsRouter = require("./routes/projects");
 const { sessionSecret } = require("./config").db;
 const { restoreUser, logoutUser, loginUser } = require("./auth");
-const db = require('./db/models');
+const db = require("./db/models");
 const app = express();
 
 // view engine setup
@@ -57,7 +57,6 @@ app.post("/", async(req, res) => {
 // error handler
 app.use(function(err, req, res, next) {
     // set locals, only providing error in development
-    console.log("yo", err.message)
     res.locals.message = err.message;
     res.locals.error = req.app.get("env") === "development" ? err : {};
 

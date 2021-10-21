@@ -1,4 +1,8 @@
-import deleteButtonFunctionality from "./projectsList.js";
+import {
+    deleteButtonFunctionality,
+    editButtonFunctionality,
+} from "./projectsList.js";
+
 const addBtn = document.getElementById("add-project-btn");
 const projectName = document.getElementById("add-project-name");
 const dueDate = document.getElementById("add-project-date");
@@ -56,6 +60,8 @@ const addEventListenerToProject = (project) => {
             singleProjectDiv.innerHTML = "";
             singleProjectDiv.innerHTML = `<div id="single-project-holder"><div id="single-project-name-${id}">${name}</div><div id="single-project-content-${id}">${content}</div><div id="single-project-dueDate-${id}">${newDueDate}</div><button class="project-edit" id="edit-${id}">Edit</button><button class="project-delete" id="delete-${id}">Delete</button></div>`;
             deleteButtonFunctionality(id);
+            editButtonFunctionality(id);
+            console.log("did it edit?");
         } catch (e) {}
     });
 };

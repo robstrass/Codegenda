@@ -1,7 +1,6 @@
 const deleteButtonFunctionality = (id) => {
     const deleteButton = document.querySelector(".project-delete");
     deleteButton.addEventListener("click", async(e) => {
-        console.log("delete", deleteButton);
         try {
             const mainProjectHolder = document.querySelector(
                 `#project-container-${id}`
@@ -16,6 +15,83 @@ const deleteButtonFunctionality = (id) => {
             const res = await fetch(`/projects/${id}`, {
                 method: "DELETE",
             });
+        } catch (e) {}
+    });
+};
+const editButtonFunctionality = (id) => {
+    const editBtn = document.querySelector(".project-edit");
+    editBtn.addEventListener("click", async(e) => {
+        try {
+            const checkEditContainer = document.querySelector("#editContainer");
+            if (!checkEditContainer) {
+                const editContainerDiv = document.createElement("div");
+                editContainerDiv.id = "editContainer";
+                const inputBoxName = document.createElement("input");
+                const inputBoxContent = document.createElement("input");
+                const inputBoxDueDate = document.createElement("input");
+                const singleProjectDivEdit = document.querySelector("#single-project");
+                inputBoxName.placeholder = "Edit name";
+                inputBoxContent.placeholder = "Edit content";
+                inputBoxDueDate.type = "date";
+                const submitBtn = document.createElement("button");
+                submitBtn.innerHTML = "submit";
+
+                editContainerDiv.appendChild(inputBoxName);
+                editContainerDiv.appendChild(inputBoxContent);
+                editContainerDiv.appendChild(inputBoxDueDate);
+                editContainerDiv.appendChild(submitBtn);
+                singleProjectDivEdit.appendChild(editContainerDiv);
+                //To replace values in our project and delete the edit fields
+                submitBtn.addEventListener("click", async(e) => {
+                    e.preventDefault();
+                    if (inputBoxName.value) {
+                        const nameValue = inputBoxName.value;
+                        const contentValue = inputBoxContent.value;
+                        const dateValue = inputBoxDueDate.value;
+                        //Changing main display project content
+                        const mainDisplayProjectName = document.querySelector(
+                            `#project-${id}`
+                        );
+                        const mainDisplayDueDate = document.querySelector(`#dueDate-${id}`);
+                        const prevNameValue = document.querySelector(
+                            `#single-project-name-${id}`
+                        );
+                        const prevContent = document.querySelector(
+                            `#single-project-content-${id}`
+                        );
+                        const prevDate = document.querySelector(
+                            `#single-project-dueDate-${id}`
+                        );
+                        if (nameValue) {
+                            prevNameValue.innerText = nameValue;
+                            mainDisplayProjectName.innerText = nameValue;
+                        }
+                        if (contentValue) {
+                            prevContent.innerText = contentValue;
+                        }
+                        if (dateValue) {
+                            prevDate.innerText = dateValue;
+                            mainDisplayDueDate.innerText = dateValue;
+                        }
+                        const name = nameValue;
+                        const content = contentValue;
+                        const dueDate = dateValue;
+                        const body = { name, content, dueDate };
+                        const res = await fetch(`/projects/${id}`, {
+                            method: "PUT",
+                            headers: {
+                                "Content-Type": "application/json",
+                            },
+                            body: JSON.stringify(body),
+                        });
+                        if (res.status === 401) {
+                            window.location.href("users/login");
+                            return;
+                        }
+                    }
+                    editContainerDiv.remove();
+                });
+            }
         } catch (e) {}
     });
 };
@@ -42,7 +118,7 @@ document.addEventListener("DOMContentLoaded", async(e) => {
             </div><div class="project-dueDate" id="dueDate-${id}">${newDueDate}</div></div>`;
         });
         // console.log(newArr);
-        console.log("hello new arr", newArr);
+        // console.log("hello new arr", newArr);
         incompleteProjects.innerHTML = newArr.join("");
     } catch (e) {}
 
@@ -73,6 +149,7 @@ document.addEventListener("DOMContentLoaded", async(e) => {
                 singleProjectDiv.innerHTML = "";
                 singleProjectDiv.innerHTML = `<div id="single-project-holder"><div id="single-project-name-${id}">${name}</div><div id="single-project-content-${id}">${content}</div><div id="single-project-dueDate-${id}">${newDueDate}</div><button class="project-edit" id="edit-${id}">Edit</button><button class="project-delete" id="delete-${id}">Delete</button></div>`;
                 deleteButtonFunctionality(id);
+                editButtonFunctionality(id);
                 //Selecting the delete button upon viewing a project to allow delete button functionality
                 // const deleteButton = document.querySelector(".project-delete");
 
@@ -101,85 +178,84 @@ document.addEventListener("DOMContentLoaded", async(e) => {
                 //     });
                 // };
                 // This is for the edit button to work:
-                const editBtn = document.querySelector(".project-edit");
-                console.log(editBtn);
+                // const editBtn = document.querySelector(".project-edit");
 
-                editBtn.addEventListener("click", async(e) => {
-                    try {
-                        const checkEditContainer = document.querySelector("#editContainer");
-                        if (!checkEditContainer) {
-                            console.log("bang bang");
-                            const editContainerDiv = document.createElement("div");
-                            editContainerDiv.id = "editContainer";
-                            const inputBoxName = document.createElement("input");
-                            const inputBoxContent = document.createElement("input");
-                            const inputBoxDueDate = document.createElement("input");
-                            inputBoxName.placeholder = "Edit name";
-                            inputBoxContent.placeholder = "Edit content";
-                            inputBoxDueDate.type = "date";
-                            const submitBtn = document.createElement("button");
-                            submitBtn.innerHTML = "submit";
+                // editBtn.addEventListener("click", async(e) => {
+                //     try {
+                //         const checkEditContainer = document.querySelector("#editContainer");
+                //         if (!checkEditContainer) {
+                //             console.log("bang bang");
+                //             const editContainerDiv = document.createElement("div");
+                //             editContainerDiv.id = "editContainer";
+                //             const inputBoxName = document.createElement("input");
+                //             const inputBoxContent = document.createElement("input");
+                //             const inputBoxDueDate = document.createElement("input");
+                //             inputBoxName.placeholder = "Edit name";
+                //             inputBoxContent.placeholder = "Edit content";
+                //             inputBoxDueDate.type = "date";
+                //             const submitBtn = document.createElement("button");
+                //             submitBtn.innerHTML = "submit";
 
-                            editContainerDiv.appendChild(inputBoxName);
-                            editContainerDiv.appendChild(inputBoxContent);
-                            editContainerDiv.appendChild(inputBoxDueDate);
-                            editContainerDiv.appendChild(submitBtn);
-                            singleProjectDiv.appendChild(editContainerDiv);
-                            //To replace values in our project and delete the edit fields
-                            submitBtn.addEventListener("click", async(e) => {
-                                e.preventDefault();
-                                if (inputBoxName.value) {
-                                    const nameValue = inputBoxName.value;
-                                    const contentValue = inputBoxContent.value;
-                                    const dateValue = inputBoxDueDate.value;
-                                    //Changing main display project content
-                                    const mainDisplayProjectName = document.querySelector(
-                                        `#project-${id}`
-                                    );
-                                    const mainDisplayDueDate = document.querySelector(
-                                        `#dueDate-${id}`
-                                    );
-                                    const prevNameValue = document.querySelector(
-                                        `#single-project-name-${id}`
-                                    );
-                                    const prevContent = document.querySelector(
-                                        `#single-project-content-${id}`
-                                    );
-                                    const prevDate = document.querySelector(
-                                        `#single-project-dueDate-${id}`
-                                    );
-                                    if (nameValue) {
-                                        prevNameValue.innerText = nameValue;
-                                        mainDisplayProjectName.innerText = nameValue;
-                                    }
-                                    if (contentValue) {
-                                        prevContent.innerText = contentValue;
-                                    }
-                                    if (dateValue) {
-                                        console.log(mainDisplayDueDate);
-                                        prevDate.innerText = dateValue;
-                                        mainDisplayDueDate.innerText = dateValue;
-                                    }
-                                    const name = nameValue;
-                                    const content = contentValue;
-                                    const dueDate = dateValue;
-                                    const body = { name, content, dueDate };
-                                    const res = await fetch(`/projects/${id}`, {
-                                        method: "PUT",
-                                        headers: {
-                                            "Content-Type": "application/json",
-                                        },
-                                        body: JSON.stringify(body),
-                                    });
-                                    if (res.status === 401) {
-                                        window.location.href("users/login");
-                                        return;
-                                    }
-                                }
-                            });
-                        }
-                    } catch (e) {}
-                });
+                //             editContainerDiv.appendChild(inputBoxName);
+                //             editContainerDiv.appendChild(inputBoxContent);
+                //             editContainerDiv.appendChild(inputBoxDueDate);
+                //             editContainerDiv.appendChild(submitBtn);
+                //             singleProjectDiv.appendChild(editContainerDiv);
+                //             //To replace values in our project and delete the edit fields
+                //             submitBtn.addEventListener("click", async(e) => {
+                //                 e.preventDefault();
+                //                 if (inputBoxName.value) {
+                //                     const nameValue = inputBoxName.value;
+                //                     const contentValue = inputBoxContent.value;
+                //                     const dateValue = inputBoxDueDate.value;
+                //                     //Changing main display project content
+                //                     const mainDisplayProjectName = document.querySelector(
+                //                         `#project-${id}`
+                //                     );
+                //                     const mainDisplayDueDate = document.querySelector(
+                //                         `#dueDate-${id}`
+                //                     );
+                //                     const prevNameValue = document.querySelector(
+                //                         `#single-project-name-${id}`
+                //                     );
+                //                     const prevContent = document.querySelector(
+                //                         `#single-project-content-${id}`
+                //                     );
+                //                     const prevDate = document.querySelector(
+                //                         `#single-project-dueDate-${id}`
+                //                     );
+                //                     if (nameValue) {
+                //                         prevNameValue.innerText = nameValue;
+                //                         mainDisplayProjectName.innerText = nameValue;
+                //                     }
+                //                     if (contentValue) {
+                //                         prevContent.innerText = contentValue;
+                //                     }
+                //                     if (dateValue) {
+                //                         console.log(mainDisplayDueDate);
+                //                         prevDate.innerText = dateValue;
+                //                         mainDisplayDueDate.innerText = dateValue;
+                //                     }
+                //                     const name = nameValue;
+                //                     const content = contentValue;
+                //                     const dueDate = dateValue;
+                //                     const body = { name, content, dueDate };
+                //                     const res = await fetch(`/projects/${id}`, {
+                //                         method: "PUT",
+                //                         headers: {
+                //                             "Content-Type": "application/json",
+                //                         },
+                //                         body: JSON.stringify(body),
+                //                     });
+                //                     if (res.status === 401) {
+                //                         window.location.href("users/login");
+                //                         return;
+                //                     }
+                //                 }
+                //             });
+                //         }
+                //     } catch (e) {}
+                // });
             } catch (e) {}
         });
     };
@@ -187,4 +263,4 @@ document.addEventListener("DOMContentLoaded", async(e) => {
         addEventListenerToProject(project);
     });
 });
-export default deleteButtonFunctionality;
+export { deleteButtonFunctionality, editButtonFunctionality };
