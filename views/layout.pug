@@ -10,7 +10,7 @@ html
         if locals.authenticated
           div(class='rightBtn') Welcome #{user.firstName}!
             form(class='' action='/users/logout' method='post')
-              button(class='' href='/' type='submit') Logout
+              button(class='logout-btn' href='/' type='submit') Logout
         else
           div(class='rightBtn')
             a(class='nav-link' href='/users/login') Login
