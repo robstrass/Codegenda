@@ -169,6 +169,8 @@ div > h1 {
 }
 
 .sign-up-btn {
+  margin: 0.3rem;
+  margin-bottom: 1rem;
   display: flex;
   color: #fff;
   background-color: #009dff;
@@ -176,9 +178,10 @@ div > h1 {
   padding: 1px 6px;
   border-radius: 4px;
   height: 2rem;
-  width: 8rem;
+  width: 18rem;
   justify-content: center;
   align-items: center;
+  font-size: 20px;
 }
 
 .sign-up-container > a {
@@ -208,6 +211,8 @@ div > h1 {
 }
 
 .loginbtn {
+  margin: 0.3rem;
+  margin-bottom: 1rem;
   display: flex;
   color: #fff;
   background-color: #009dff;
@@ -215,9 +220,10 @@ div > h1 {
   padding: 1px 6px;
   border-radius: 4px;
   height: 2rem;
-  width: 8rem;
+  width: 18rem;
   justify-content: center;
   align-items: center;
+  font-size: 20px;
 }
 .log-in-form > a {
   display: flex;
