@@ -11,6 +11,7 @@ const deleteButtonFunctionality = (id) => {
             const selectedProject = document.querySelector("#single-project-holder");
             const singleProject = document.querySelector("#single-project");
             const newTaskHolder = document.querySelector('.new-task-container');
+            const taskContainer = document.querySelector('#task-container');
             //const mainProjectDueDate = document.querySelector(`#dueDate-${id}`);
             selectedProject.remove();
             mainProjectHolder.remove();
@@ -19,6 +20,9 @@ const deleteButtonFunctionality = (id) => {
             }
             if (newTaskHolder) {
                 newTaskHolder.remove();
+            }
+            if (taskContainer) {
+                taskContainer.remove();
             }
             const res = await fetch(`/projects/${id}`, {
                 method: "DELETE",
@@ -169,7 +173,7 @@ document.addEventListener("DOMContentLoaded", async(e) => {
                 const { name, content, dueDate } = project;
                 let newDueDate = dueDate.split("T")[0];
                 singleProjectDiv.innerHTML = "";
-                singleProjectDiv.innerHTML = `<div id="single-project-holder"><div id="single-project-name-${id}">${name}</div><div id="single-project-content-${id}">${content}</div><div id="single-project-dueDate-${id}">${newDueDate}</div><button class="add-tasks" id="project-${id}-task">Add a Task</button><button class="project-edit" id="edit-${id}">Edit</button><button class="project-delete" id="delete-${id}">Delete</button></div>`;
+                singleProjectDiv.innerHTML = `<div id="single-project-holder"><div id="single-project-name-${id}">${name}</div><div id="single-project-content-${id}">${content}</div><div id="single-project-dueDate-${id}">${newDueDate}</div><button class="add-tasks" id="project-${id}-task">Add a Task</button><button class="project-edit" id="edit-${id}">Edit</button><button class="project-delete" id="delete-${id}">Delete</button></div><div id='task-container'>All Tasks</div>`;
                 deleteButtonFunctionality(id);
                 editButtonFunctionality(id);
                 addTaskFunc(id);

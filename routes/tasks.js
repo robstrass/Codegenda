@@ -10,6 +10,17 @@ const  {
 const { requireAuth } = require('../auth');
 const db = require('../db/models');
 
+const taskValidation = [
+    check('name')
+    .exists({ checkFalsy: true })
+    .withMessage('Please give your task a name.')
+    .isLength({ max: 255 })
+    .withMessage('The max characters for your task name is 255.'),
+    check('content')
+    .exists({ checkFalsy: true })
+    .withMessage('Please describe your task.')
+]
+
 router.get('/', asyncHandler(async(req, res) => {
     const { projectId } = req.body;
     const tasks = await db.Task.findAll({
@@ -22,6 +33,16 @@ router.get('/', asyncHandler(async(req, res) => {
         attributes: ['name', 'content', 'dueDate', 'language', 'id'],
     })
     res.json({ tasks });
+}));
+
+router.post('/:id(\\d+)', taskValidation, csrfProtection, asyncHandler(async(req, res) => {
+    const { name, content, dueDate, language, projectId } = req.body;
+    const newTask = await db.Task.build({
+        name, content, dueDate, language, projectId
+    });
+    const userId = req.session.auth.userId;
+    await newTask.save();
+    res.json(newTask);
 }));
 
 module.exports = router;
