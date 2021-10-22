@@ -1,3 +1,7 @@
+const taskFormFunc = async() => {
+    const formData = new FormData(form)
+};
+
 const addTaskFunc = (id) => {
     const addTaskBtn = document.querySelector(`#project-${id}-task`);
     addTaskBtn.addEventListener('click', async (e) => {
@@ -9,6 +13,7 @@ const addTaskFunc = (id) => {
             const contentInputField = document.createElement('input');
             const languageInputField = document.createElement('input');
             const dueDateInputField = document.createElement('input');
+            const taskSubmit = document.createElement('button');
 
             newTaskHolder.className = 'new-task-container';
             newTaskForm.className = 'new-task-form';
@@ -21,14 +26,17 @@ const addTaskFunc = (id) => {
             nameInputField.placeholder = 'Task Name';
             contentInputField.placeholder = 'Content';
             languageInputField.placeholder = 'Coding Language';
-
+            taskSubmit.innerText = 'Create Task';
 
             singleProjectDivEdit.appendChild(newTaskHolder);
             newTaskHolder.appendChild(newTaskForm);
+            newTaskHolder.appendChild(taskSubmit);
             newTaskForm.appendChild(nameInputField);
             newTaskForm.appendChild(contentInputField);
             newTaskForm.appendChild(languageInputField);
             newTaskForm.appendChild(dueDateInputField);
+
+
         } catch (e) {
 
         }
