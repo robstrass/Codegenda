@@ -48,11 +48,11 @@ app.use(function(req, res, next) {
     next(createError(404));
 });
 
-app.post("/", async(req, res) => {
-    const demoUser = await db.User.findByPk(1);
-    loginUser(req, res, demoUser);
-    res.redirect(`/users/${demoUser.id}/home`);
-});
+// app.post("/", async(req, res) => {
+//     const demoUser = await db.User.findByPk(1);
+//     loginUser(req, res, demoUser);
+//     res.redirect(`/users/${demoUser.id}/home`);
+// });
 
 // error handler
 app.use(function(err, req, res, next) {
