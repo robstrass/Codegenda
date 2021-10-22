@@ -38,6 +38,7 @@ app.use(
 app.use(restoreUser);
 app.use("/users", usersRouter);
 app.use("/projects", projectsRouter);
+app.use("/")
 // create Session table if it doesn't already exist
 store.sync();
 
