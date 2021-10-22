@@ -231,3 +231,33 @@ div > h1 {
   margin-top: 20px;
   justify-content: center;
 }
+
+/* footer */
+.footer-container {
+  display: flex;
+  background-color: white;
+  height: 8rem;
+  justify-content: space-evenly;
+}
+
+.creator {
+  color: black;
+}
+
+.github-img {
+  align-self: center;
+  height: 40px;
+  width: auto;
+}
+.footer-container > div {
+  display: flex;
+}
+
+.footer-element {
+  flex-direction: column;
+}
+
+.github-link {
+  display: flex;
+  justify-content: center;
+}
