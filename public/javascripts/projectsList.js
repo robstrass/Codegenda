@@ -38,7 +38,7 @@ const editButtonFunctionality = (id) => {
                 const inputBoxName = document.createElement("input");
                 const inputBoxContent = document.createElement("input");
                 const inputBoxDueDate = document.createElement("input");
-                const singleProjectDivEdit = document.querySelector("#single-project");
+                const singleProjectDivEdit = document.querySelector("#single-project-holder");
                 inputBoxName.placeholder = "Edit name";
                 inputBoxContent.placeholder = "Edit content";
                 inputBoxDueDate.type = "date";

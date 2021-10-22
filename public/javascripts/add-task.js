@@ -1,7 +1,6 @@
 const addTaskFunc = (id) => {
     const addTaskBtn = document.querySelector(`#project-${id}-task`);
     addTaskBtn.addEventListener('click', async (e) => {
-        console.log('hello');
         try {
             const singleProjectDivEdit = document.querySelector("#single-project");
             const newTaskHolder = document.createElement('div');
