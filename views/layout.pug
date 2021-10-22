@@ -8,7 +8,10 @@ html
       nav(class="nav-bar")
         a(class="brand nav-link" href="/") CodeGenda
         if locals.authenticated
-          div(class='rightBtn') Welcome #{user.firstName}!
+          div.search-input
+            input(type="text" placeholder="Search project")
+            button Search 
+          div(class='rightBtn') Welcome!
             form(class='' action='/users/logout' method='post')
               button(class='logout-btn' href='/' type='submit') Logout
         else
@@ -21,4 +24,26 @@ html
         div.sideBar 
         div.mainContent 
           block content
-        div.sideBar 
+        div.sideBar
+      block footer
+        div.footer-container
+          div.footer-element
+            p.creator Israel Romero
+            a.github-link(href="https://github.com/snakedreamz")
+              img(src="/github-icon.png", alt="github" class="github-img") 
+          div.footer-element
+            p.creator Rob Strasser
+            a.github-link(href="https://github.com/robstrass") 
+              img(src="/github-icon.png", alt="github" class="github-img")
+          div.footer-element
+            p.creator Jake Payne 
+            a.github-link(href="https://github.com/Payneless")
+              img(src="/github-icon.png", alt="github" class="github-img")
+          div.footer-element
+            p.creator Jose Cantu
+            a.github-link(href="https://github.com/Vour123")
+              img(src="/github-icon.png", alt="github" class="github-img")
+          
+
+
+       
