@@ -85,7 +85,8 @@ router.post(
 router.get("/:id(\\d+)/home", requireAuth, async (req, res, next) => {
   const { userId } = req.session.auth;
   const user = await db.User.findByPk(userId);
-  // console.log(user);
+  // console.log('testing', res.locals.user.id);
+
   res.render("home", { userId, user });
 });
 

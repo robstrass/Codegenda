@@ -1,3 +1,5 @@
+import { addTaskFunc } from './add-task.js';
+
 const deleteButtonFunctionality = (id) => {
     const deleteButton = document.querySelector(".project-delete");
     deleteButton.addEventListener("click", async(e) => {
@@ -8,11 +10,15 @@ const deleteButtonFunctionality = (id) => {
             const editContainer = document.querySelector(`#editContainer`);
             const selectedProject = document.querySelector("#single-project-holder");
             const singleProject = document.querySelector("#single-project");
+            const newTaskHolder = document.querySelector('.new-task-container');
             //const mainProjectDueDate = document.querySelector(`#dueDate-${id}`);
             selectedProject.remove();
             mainProjectHolder.remove();
             if (editContainer) {
                 editContainer.remove();
+            }
+            if (newTaskHolder) {
+                newTaskHolder.remove();
             }
             const res = await fetch(`/projects/${id}`, {
                 method: "DELETE",
@@ -163,9 +169,10 @@ document.addEventListener("DOMContentLoaded", async(e) => {
                 const { name, content, dueDate } = project;
                 let newDueDate = dueDate.split("T")[0];
                 singleProjectDiv.innerHTML = "";
-                singleProjectDiv.innerHTML = `<div id="single-project-holder"><div id="single-project-name-${id}">${name}</div><div id="single-project-content-${id}">${content}</div><div id="single-project-dueDate-${id}">${newDueDate}</div><button class="project-edit" id="edit-${id}">Edit</button><button class="project-delete" id="delete-${id}">Delete</button></div>`;
+                singleProjectDiv.innerHTML = `<div id="single-project-holder"><div id="single-project-name-${id}">${name}</div><div id="single-project-content-${id}">${content}</div><div id="single-project-dueDate-${id}">${newDueDate}</div><button class="add-tasks" id="project-${id}-task">Add a Task</button><button class="project-edit" id="edit-${id}">Edit</button><button class="project-delete" id="delete-${id}">Delete</button></div>`;
                 deleteButtonFunctionality(id);
                 editButtonFunctionality(id);
+                addTaskFunc(id);
             } catch (e) {}
         });
     };
