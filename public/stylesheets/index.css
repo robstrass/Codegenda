@@ -269,6 +269,7 @@ div > h1 {
   background-color: white;
   height: 8rem;
   justify-content: space-evenly;
+  margin-bottom: 0px;
 }
 
 .creator {
