@@ -35,7 +35,7 @@ router.get('/:projectId(\\d+)', asyncHandler(async(req, res) => {
     res.json({ tasks });
 }));
 
-router.post('/:projectId', asyncHandler(async(req, res) => {
+router.post('/:projectId(\\d+)', asyncHandler(async(req, res) => {
     const { name, content, dueDate, language, projectId } = req.body;
     const newTask = await db.Task.build({
         name, content, dueDate, language, projectId
