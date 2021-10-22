@@ -80,6 +80,34 @@ div > h1 {
   background-color: transparent;
 }
 
+.search-input {
+  display: flex;
+  align-items: center;
+}
+.search-input > input {
+  height: 1.5rem;
+  background-color: rgba(255, 255, 255, 0.2);
+  border: none;
+  color: white;
+  border-radius: 4px;
+}
+.search-input > input:focus {
+  background-color: white;
+  color: black;
+}
+
+.search-input > input::placeholder {
+  color: white;
+  padding: 5px;
+}
+.search-input > button {
+  height: 1.6rem;
+  color: white;
+  border-radius: 4px;
+  border: 1px solid;
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
 /* home page */
 
 .home-img {

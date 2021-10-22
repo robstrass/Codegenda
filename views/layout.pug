@@ -8,7 +8,10 @@ html
       nav(class="nav-bar")
         a(class="brand nav-link" href="/") CodeGenda
         if locals.authenticated
-          div(class='rightBtn') Welcome #{user.firstName}!
+          div.search-input
+            input(type="text" placeholder="Search project")
+            button Search 
+          div(class='rightBtn') Welcome!
             form(class='' action='/users/logout' method='post')
               button(class='logout-btn' href='/' type='submit') Logout
         else
