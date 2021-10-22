@@ -7,6 +7,9 @@ const {
     validationResult,
 } = require("./utils");
 
+const { requireAuth } = require("../auth");
+
+
 const db = require("../db/models");
 
 const projectValidation = [
@@ -52,12 +55,26 @@ router.post(
 );
 
 router.get('/:id(\\d+)',
+    requireAuth,
     asyncHandler(async(req, res) => {
         const id = req.params.id;
-        const project = await db.Project.findByPk(id);
+        const project = await db.Project.findByPk(id, {
+            include: db.User
+        });
+        if(!project) {
+            const err = new Error("What are you doing here? This project doesn't exist anyways.");
+            err.status = 400;
+            throw err;
+        }
+        if(res.locals.user.id !== project.User.id) {
+            const err = new Error("You don't belong here.");
+            err.status = 401;
+            throw err;
+        }
         res.json({ project });
     }));
 
+    
 router.put('/:id(\\d+)',
     projectValidation,
     asyncHandler(async(req, res, next) => {
