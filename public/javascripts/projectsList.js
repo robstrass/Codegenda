@@ -70,7 +70,7 @@ const editButtonFunctionality = (id) => {
                         // mainDisplayProjectName is main list stuff
                         // prevNameValue is original stuff
                         // nameValue is new stuff
-                        console.log('prev vals: ', prevNameValue.innerHTML, prevContent.innerHTML, prevDate.innerHTML);
+                        // console.log('prev vals: ', prevNameValue.innerHTML, prevContent.innerHTML, prevDate.innerHTML);
                         if (nameValue) {
                             prevNameValue.innerText = nameValue;
                             mainDisplayProjectName.innerText = nameValue;
@@ -92,7 +92,7 @@ const editButtonFunctionality = (id) => {
                         const content = contentValue;
                         const dueDate = dateValue;
                         const body = { name, content, dueDate };
-                        console.log('editing: ', body, body.name, body.content, body.dueDate);
+                        // console.log('editing: ', body, body.name, body.content, body.dueDate);
                         const res = await fetch(`/projects/${id}`, {
                             method: "PUT",
                             headers: {
@@ -128,14 +128,13 @@ document.addEventListener("DOMContentLoaded", async(e) => {
         const incompleteProjects = document.querySelector(
             "#incomplete-projects-list"
         );
-        // console.log(incompleteProjects);
+
         const newArr = projects.map(({ name, dueDate, id }) => {
             let newDueDate = dueDate.split("T")[0];
             return `<div id="project-container-${id}" class="project-container-class"><div class="project-name" id="project-${id}">${name}
             </div><div class="project-dueDate" id="dueDate-${id}">${newDueDate}</div></div>`;
         });
-        // console.log(newArr);
-        // console.log("hello new arr", newArr);
+
         incompleteProjects.innerHTML = newArr.join("");
     } catch (e) {}
 
