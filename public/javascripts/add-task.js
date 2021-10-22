@@ -1,7 +1,3 @@
-const taskFormFunc = async() => {
-    const formData = new FormData(form)
-};
-
 const addTaskFunc = (id) => {
     const addTaskBtn = document.querySelector(`#project-${id}-task`);
     addTaskBtn.addEventListener('click', async (e) => {
@@ -22,6 +18,7 @@ const addTaskFunc = (id) => {
             languageInputField.className = 'new-task-field';
             dueDateInputField.className = 'new-task-field';
             dueDateInputField.type = 'date';
+            taskSubmit.id = 'task-submit-button';
 
             nameInputField.placeholder = 'Task Name';
             contentInputField.placeholder = 'Content';
@@ -37,6 +34,33 @@ const addTaskFunc = (id) => {
             newTaskForm.appendChild(dueDateInputField);
 
 
+            const taskSubmitBtn = document.querySelector('#task-submit-button');
+            taskSubmitBtn.addEventListener('click', async(e) => {
+                const taskForm = document.querySelector('.new-task-form')
+                const taskFormFunc = async() => {
+                    const formData = new FormData(taskForm);
+                    const name = formData.get('name');
+                    const content = formData.get('content');
+                    const language = formData.get('language');
+                    const dueDate = formData.get('dueDate');
+                    const projectId = id;
+                    const body = {name, content, language, dueDate, projectId};
+                    
+                    try{
+                        const res = await fetch(`/tasks/${projectId}`, {
+                            method: "POST",
+                            body: JSON.stringify(body),
+                            headers: {"Content-Type": "application/json"}
+                        })
+                        const newTask = await res.json();
+                        return newTask;
+                    } catch(e) {
+                        if(e.status == 401) {
+                            windows.location.href = '/users/login';
+                        } 
+                    }
+                }
+            });
         } catch (e) {
 
         }

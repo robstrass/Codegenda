@@ -21,8 +21,8 @@ const taskValidation = [
     .withMessage('Please describe your task.')
 ]
 
-router.get('/', asyncHandler(async(req, res) => {
-    const { projectId } = req.body;
+router.get('/:projectId(\\d+)', asyncHandler(async(req, res) => {
+    const { projectId } = req.params;
     const tasks = await db.Task.findAll({
         where: {
             projectId
@@ -35,12 +35,13 @@ router.get('/', asyncHandler(async(req, res) => {
     res.json({ tasks });
 }));
 
-router.post('/:id(\\d+)', taskValidation, csrfProtection, asyncHandler(async(req, res) => {
+router.post('/:projectId(\\d+)', taskValidation, csrfProtection, asyncHandler(async(req, res) => {
     const { name, content, dueDate, language, projectId } = req.body;
     const newTask = await db.Task.build({
         name, content, dueDate, language, projectId
     });
     const userId = req.session.auth.userId;
+    newTask.userId = userId;
     await newTask.save();
     res.json(newTask);
 }));

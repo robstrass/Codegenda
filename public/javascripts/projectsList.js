@@ -177,7 +177,26 @@ document.addEventListener("DOMContentLoaded", async(e) => {
                 deleteButtonFunctionality(id);
                 editButtonFunctionality(id);
                 addTaskFunc(id);
-            } catch (e) {}
+
+                const resTask = await fetch(`/tasks/${id}`, {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json"
+                    }
+                })
+                if(resTask.status == 401) {
+                    window.location.href = '/users/login'
+                } else {
+                    const { tasks } = await resTask.json();
+                    const taskArr = tasks.map(({name, content, language, dueDate, id}) => {
+                        let newDueDate = dueDate.split('T')[0];
+                        return `<div id="task-container-${id}" class="task-container-class"><div class="task-name" id="task-${id}>${name}</div><div class='task-content' id='task-content-${id}'>${content}</div><div class='task-language' id='language-${id}>${language}</div><div class="task-dueDate" id="task-dueDate-${id}">${newDueDate}</div></div>`
+                    });
+                    taskContainer.innerHTML = taskArr.join('');
+                }
+            } catch (e) {
+
+            }
         });
     };
     allProjects.forEach((project) => {
