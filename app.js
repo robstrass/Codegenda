@@ -35,11 +35,12 @@ app.use(
         resave: false,
     })
 );
-
+    
 app.use(restoreUser);
 app.use("/users", usersRouter);
 app.use("/projects", projectsRouter);
 app.use('/tasks', tasksRouter);
+
 // create Session table if it doesn't already exist
 store.sync();
 

@@ -35,7 +35,7 @@ router.get('/:projectId(\\d+)', asyncHandler(async(req, res) => {
     res.json({ tasks });
 }));
 
-router.post('/:projectId(\\d+)', taskValidation, csrfProtection, asyncHandler(async(req, res) => {
+router.post('/:projectId', asyncHandler(async(req, res) => {
     const { name, content, dueDate, language, projectId } = req.body;
     const newTask = await db.Task.build({
         name, content, dueDate, language, projectId
@@ -45,5 +45,6 @@ router.post('/:projectId(\\d+)', taskValidation, csrfProtection, asyncHandler(as
     await newTask.save();
     res.json(newTask);
 }));
-
+    
+   
 module.exports = router;

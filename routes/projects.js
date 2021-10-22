@@ -55,7 +55,6 @@ router.post(
             res.json(newProject);
         } else {
             let errors = projectErrors.array().map((error) => error.msg);
-            // errors =
         }
 
     })

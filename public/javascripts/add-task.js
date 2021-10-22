@@ -1,6 +1,7 @@
 const addTaskFunc = (id) => {
     const addTaskBtn = document.querySelector(`#project-${id}-task`);
     addTaskBtn.addEventListener('click', async (e) => {
+        console.log('string', id);
         try {
             const singleProjectDivEdit = document.querySelector("#single-project");
             const newTaskHolder = document.createElement('div');
@@ -20,6 +21,13 @@ const addTaskFunc = (id) => {
             dueDateInputField.type = 'date';
             taskSubmit.id = 'task-submit-button';
 
+
+            nameInputField.name = 'new-task-name';
+            contentInputField.name = 'new-task-content';
+            languageInputField.name = 'new-task-language';
+            dueDateInputField.name = 'new-task-dueDate';
+
+
             nameInputField.placeholder = 'Task Name';
             contentInputField.placeholder = 'Content';
             languageInputField.placeholder = 'Coding Language';
@@ -35,31 +43,33 @@ const addTaskFunc = (id) => {
 
 
             const taskSubmitBtn = document.querySelector('#task-submit-button');
-            taskSubmitBtn.addEventListener('click', async(e) => {
-                const taskForm = document.querySelector('.new-task-form')
-                const taskFormFunc = async() => {
-                    const formData = new FormData(taskForm);
-                    const name = formData.get('name');
-                    const content = formData.get('content');
-                    const language = formData.get('language');
-                    const dueDate = formData.get('dueDate');
-                    const projectId = id;
-                    const body = {name, content, language, dueDate, projectId};
-                    
-                    try{
-                        const res = await fetch(`/tasks/${projectId}`, {
-                            method: "POST",
-                            body: JSON.stringify(body),
-                            headers: {"Content-Type": "application/json"}
-                        })
-                        const newTask = await res.json();
-                        return newTask;
-                    } catch(e) {
-                        if(e.status == 401) {
-                            windows.location.href = '/users/login';
-                        } 
-                    }
+            const taskForm = document.querySelector('.new-task-form')
+            const taskFormFunc = async() => {
+                const formData = new FormData(taskForm);
+                const name = formData.get('new-task-name');
+                const content = formData.get('new-task-content');
+                const language = formData.get('new-task-language');
+                const dueDate = formData.get('new-task-dueDate');
+                const projectId = id;
+                const body = {name, content, language, dueDate, projectId};
+                
+                try{
+                    const res = await fetch(`/tasks/${projectId}`, {
+                        method: "POST",
+                        body: JSON.stringify(body),
+                        headers: {"Content-Type": "application/json"}
+                    })
+                    const newTask = await res.json();
+                    return newTask;
+                } catch(e) {
+                    if(e.status == 401) {
+                        windows.location.href = '/users/login';
+                    } 
                 }
+            }
+            taskSubmitBtn.addEventListener('click', async(e) => {
+                const returnTaskVal = await taskFormFunc(); 
+                console.log('returnTaskVal', returnTaskVal);
             });
         } catch (e) {
 
