@@ -5,8 +5,9 @@ import {
 
 const addBtn = document.getElementById("add-project-btn");
 const projectName = document.getElementById("add-project-name");
-const dueDate = document.getElementById("add-project-date");
-const mainDisplay = document.querySelector(".main-display");
+const dueDateDiv = document.getElementById("add-project-date");
+const contentDiv = document.querySelector('#add-project-content');
+
 const form = document.querySelector(".project-form");
 const incompleteProjects = document.querySelector("#incomplete-projects-list");
 
@@ -79,7 +80,7 @@ addBtn.addEventListener("click", async(e) => {
         newDiv.className = "project-name";
         newDiv.id = `project-${id}`;
         const dateDiv = document.createElement("div");
-        // const editBtn = document.createElement("a")
+
         newDiv.innerText = projectName.value;
         let newDueDate = dueDate.split("T")[0];
         if (newDueDate) {
@@ -87,8 +88,12 @@ addBtn.addEventListener("click", async(e) => {
         }
         mainProjectContainer.appendChild(newDiv);
         mainProjectContainer.appendChild(dateDiv);
-        // dueDate.value= "";
-        // projectName.value= "";
+
         addEventListenerToProject(mainProjectContainer);
+        // console.log('add proj values: ', dueDateDiv.value, projectName.value)
+        projectName.value = '';
+        dueDateDiv.value = '';
+        contentDiv.value = '';
+        // console.log('after removing: ', projectName.value, dueDateDiv.value, contentDiv.value);
     }
 });

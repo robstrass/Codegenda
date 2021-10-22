@@ -39,6 +39,8 @@ const editButtonFunctionality = (id) => {
                 const submitBtn = document.createElement("button");
                 submitBtn.innerHTML = "submit";
 
+                const singleHolderDiv = document.querySelector('#single-project-holder');
+
                 editContainerDiv.appendChild(inputBoxName);
                 editContainerDiv.appendChild(inputBoxContent);
                 editContainerDiv.appendChild(inputBoxDueDate);
@@ -48,9 +50,9 @@ const editButtonFunctionality = (id) => {
                 submitBtn.addEventListener("click", async(e) => {
                     e.preventDefault();
                     if (inputBoxName.value) {
-                        const nameValue = inputBoxName.value;
-                        const contentValue = inputBoxContent.value;
-                        const dateValue = inputBoxDueDate.value;
+                        let nameValue = inputBoxName.value;
+                        let contentValue = inputBoxContent.value;
+                        let dateValue = inputBoxDueDate.value;
                         //Changing main display project content
                         const mainDisplayProjectName = document.querySelector(
                             `#project-${id}`
@@ -65,21 +67,32 @@ const editButtonFunctionality = (id) => {
                         const prevDate = document.querySelector(
                             `#single-project-dueDate-${id}`
                         );
+                        // mainDisplayProjectName is main list stuff
+                        // prevNameValue is original stuff
+                        // nameValue is new stuff
+                        // console.log('prev vals: ', prevNameValue.innerHTML, prevContent.innerHTML, prevDate.innerHTML);
                         if (nameValue) {
                             prevNameValue.innerText = nameValue;
                             mainDisplayProjectName.innerText = nameValue;
+                        } else {
+                            nameValue = prevNameValue.innerText;
                         }
                         if (contentValue) {
                             prevContent.innerText = contentValue;
+                        } else {
+                            contentValue = prevContent.innerText;
                         }
                         if (dateValue) {
                             prevDate.innerText = dateValue;
                             mainDisplayDueDate.innerText = dateValue;
+                        } else {
+                            dateValue = prevDate.innerText;
                         }
                         const name = nameValue;
                         const content = contentValue;
                         const dueDate = dateValue;
                         const body = { name, content, dueDate };
+                        // console.log('editing: ', body, body.name, body.content, body.dueDate);
                         const res = await fetch(`/projects/${id}`, {
                             method: "PUT",
                             headers: {
@@ -93,6 +106,7 @@ const editButtonFunctionality = (id) => {
                         }
                     }
                     editContainerDiv.remove();
+                    singleHolderDiv.remove();
                 });
             }
         } catch (e) {}
@@ -114,14 +128,13 @@ document.addEventListener("DOMContentLoaded", async(e) => {
         const incompleteProjects = document.querySelector(
             "#incomplete-projects-list"
         );
-        // console.log(incompleteProjects);
+
         const newArr = projects.map(({ name, dueDate, id }) => {
             let newDueDate = dueDate.split("T")[0];
             return `<div id="project-container-${id}" class="project-container-class"><div class="project-name" id="project-${id}">${name}
             </div><div class="project-dueDate" id="dueDate-${id}">${newDueDate}</div></div>`;
         });
-        // console.log(newArr);
-        // console.log("hello new arr", newArr);
+
         incompleteProjects.innerHTML = newArr.join("");
     } catch (e) {}
 
