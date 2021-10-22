@@ -2,6 +2,7 @@ import {
     deleteButtonFunctionality,
     editButtonFunctionality,
 } from "./projectsList.js";
+import { addTaskFunc } from "./add-task.js";
 
 const addBtn = document.getElementById("add-project-btn");
 const projectName = document.getElementById("add-project-name");
@@ -59,10 +60,11 @@ const addEventListenerToProject = (project) => {
             const { name, content, dueDate } = project;
             let newDueDate = dueDate.split("T")[0];
             singleProjectDiv.innerHTML = "";
-            singleProjectDiv.innerHTML = `<div id="single-project-holder"><div id="single-project-name-${id}">${name}</div><div id="single-project-content-${id}">${content}</div><div id="single-project-dueDate-${id}">${newDueDate}</div><button class="project-edit" id="edit-${id}">Edit</button><button class="project-delete" id="delete-${id}">Delete</button></div>`;
+            singleProjectDiv.innerHTML = `<div id="single-project-holder"><div id="single-project-name-${id}">${name}</div><div id="single-project-content-${id}">${content}</div><div id="single-project-dueDate-${id}">${newDueDate}</div><button class="add-tasks" id="project-${id}-task">Add a Task</button><button class="project-edit" id="edit-${id}">Edit</button><button class="project-delete" id="delete-${id}">Delete</button></div>`;
             deleteButtonFunctionality(id);
             editButtonFunctionality(id);
-            console.log("did it edit?");
+            addTaskFunc(id);
+            // console.log("did it edit?");
         } catch (e) {}
     });
 };

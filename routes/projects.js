@@ -1,15 +1,13 @@
 const express = require("express");
 const router = express.Router();
+
 const {
     check,
     asyncHandler,
     csrfProtection,
     validationResult,
 } = require("./utils");
-
 const { requireAuth } = require("../auth");
-
-
 const db = require("../db/models");
 
 const projectValidation = [
@@ -74,7 +72,7 @@ router.get('/:id(\\d+)',
         res.json({ project });
     }));
 
-    
+
 router.put('/:id(\\d+)',
     projectValidation,
     asyncHandler(async(req, res, next) => {
