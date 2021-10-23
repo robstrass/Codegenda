@@ -198,20 +198,24 @@ document.addEventListener("DOMContentLoaded", async(e) => {
                     const taskArr = tasks.map(
                         ({ name, content, language, dueDate, id }) => {
                             let newDueDate = dueDate.split("T")[0];
-                            return `<div id="task-container-${id}" class="task-container-class"><div class="task-name" id="task-${id}">${name}</div><div class='task-content' id='task-content-${id}'>${content}</div><div class='task-language' id='language-${id}'>${language}</div><div class="task-dueDate" id="task-dueDate-${id}">${newDueDate}</div><button class="delete-task-button">Delete Task</button></div>`;
+                            return `<div id="task-container-${id}" class="task-container-class"><div class="task-name" id="task-${id}">${name}</div><div class='task-content' id='task-content-${id}'>${content}</div><div class='task-language' id='language-${id}'>${language}</div><div class="task-dueDate" id="task-dueDate-${id}">${newDueDate}</div><button class="delete-task-button" id="task-delete-btn-${id}">Delete Task</button></div>`;
                         }
                     );
                     taskContainer.innerHTML = taskArr.join("");
                 }
-                // const taskDeleteButton = document.querySelector(".delete-task-button");
-                // taskDeleteButton.addEventListener("click", async(e) => {
-                //     try {
-                //         const res = await fetch(`/tasks/${id}/${id}`, {
-                //             method: "DELETE",
-                //         });
-                //         taskHolder.destroy();
-                //     } catch (e) {}
-                // });
+                const taskDeleteButton = document.querySelector(".delete-task-button");
+                const buttonIdString = taskDeleteButton.getAttribute('id');
+                const taskId = buttonIdString.split('-')[3];
+                const taskHolder = document.querySelector(`#task-container-${taskId}`);
+                
+                taskDeleteButton.addEventListener("click", async(e) => {
+                    try {
+                        const res = await fetch(`/tasks/${id}/${taskId}`, {
+                            method: "DELETE",
+                        });
+                        taskHolder.remove();
+                    } catch (e) {}
+                });
             } catch (e) {}
         });
     };
