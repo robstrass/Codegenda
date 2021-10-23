@@ -72,7 +72,23 @@ const addEventListenerToProject = (project) => {
 // actual event listener to create the divs to display on screen
 addBtn.addEventListener("click", async(e) => {
     const returnVal = await formFunc();
-    console.log('testing', returnVal)
+    // console.log('testing', returnVal)
+    const { errors } = returnVal
+    console.log('errors arr', errors)
+
+    const errorsDiv = document.querySelector('#project-errors');
+    errorsDiv.innerHTML = '';
+    if (errors && errors.length > 0) {
+        const errorUL = document.createElement('ul');
+        errorsDiv.appendChild(errorUL);
+        errors.forEach(error => {
+            const newErrMsg = document.createElement('li');
+            newErrMsg.innerText = error;
+            errorUL.appendChild(newErrMsg);
+        })
+    }
+
+
     const { id, name, content, dueDate } = returnVal;
     if (projectName.value) {
         const mainProjectContainer = document.createElement("div");
