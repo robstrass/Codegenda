@@ -24,6 +24,7 @@ const taskValidation = [
     .withMessage('Please provide a due date for your Task'),
     check('language')
     .exists({ checkFalsy: true })
+    .withMessage('Please provide a coding lanuage for the task.')
     .isLength({ max: 255 })
     .withMessage('Please limit your coding langauge to less than 255 characters.')
 ];
