@@ -64,7 +64,7 @@ const addEventListenerToProject = (project) => {
             deleteButtonFunctionality(id);
             editButtonFunctionality(id);
             addTaskFunc(id);
-            // console.log("did it edit?");
+            
         } catch (e) {}
     });
 };
