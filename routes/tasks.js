@@ -19,11 +19,19 @@ const taskValidation = [
     check("content")
     .exists({ checkFalsy: true })
     .withMessage("Please describe your task."),
+    check('dueDate')
+    .exists({ checkFalsy: true })
+    .withMessage('Please provide a due date for your Task'),
+    check('language')
+    .exists({ checkFalsy: true })
+    .isLength({ max: 255 })
+    .withMessage('Please limit your coding langauge to less than 255 characters.')
 ];
 
 router.get(
     "/:projectId(\\d+)",
     asyncHandler(async(req, res) => {
+        const errors = [];
         const { projectId } = req.params;
         const tasks = await db.Task.findAll({
             where: {
@@ -34,25 +42,33 @@ router.get(
             ],
             attributes: ["name", "content", "dueDate", "language", "id"],
         });
-        res.json({ tasks });
+        res.json({ tasks, errors });
     })
 );
 
 router.post(
     "/:projectId(\\d+)",
+    taskValidation,
     asyncHandler(async(req, res) => {
         const { name, content, dueDate, language, projectId } = req.body;
-        const newTask = await db.Task.build({
-            name,
-            content,
-            dueDate,
-            language,
-            projectId,
-        });
-        const userId = req.session.auth.userId;
-        newTask.userId = userId;
-        await newTask.save();
-        res.json(newTask);
+        const taskErrors = validationResult(req);
+
+        if (taskErrors.isEmpty()) {
+            const newTask = await db.Task.build({
+                name,
+                content,
+                dueDate,
+                language,
+                projectId,
+            });
+            const userId = req.session.auth.userId;
+            newTask.userId = userId;
+            await newTask.save();
+            res.json(newTask);
+        } else {
+            let errors = taskErrors.array().map((error) => error.msg);
+            res.json({ errors });
+        }
     })
 );
 router.delete(

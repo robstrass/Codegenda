@@ -66,6 +66,9 @@ const addTaskFunc = (id) => {
             };
             taskSubmitBtn.addEventListener("click", async(e) => {
                 const returnTaskVal = await taskFormFunc();
+                console.log('should be errors', returnTaskVal.errors)
+
+
                 const { id, name, content, dueDate, language } = returnTaskVal;
                 const taskContainerDiv = document.querySelector("#task-container");
                 let newDueDate = dueDate.split("T")[0];
