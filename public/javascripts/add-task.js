@@ -96,8 +96,9 @@ const addTaskFunc = (id) => {
                         const res = await fetch(`/tasks/${projectId}/${id}`, {
                             method: "DELETE",
                         });
-                    } catch (e) {}
-                    taskHolder.remove();
+                        taskHolder.remove();
+                    } catch (e) {
+                    }
                 });
             });
         } catch (e) {}
