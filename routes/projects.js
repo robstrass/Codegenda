@@ -24,6 +24,7 @@ const projectValidation = [
 router.get(
     "/",
     asyncHandler(async(req, res) => {
+        const errors = [];
         const { username } = req.body;
         const projects = await db.Project.findAll({
             where: {
@@ -34,7 +35,7 @@ router.get(
             ],
             attributes: ["name", "content", "dueDate", "id"],
         });
-        res.json({ projects });
+        res.json({ projects, errors });
     })
 );
 
@@ -43,12 +44,19 @@ router.post(
     projectValidation,
     asyncHandler(async(req, res) => {
         const { name, content, dueDate } = req.body;
-        const newProject = await db.Project.build({ name, content, dueDate });
-        const userId = req.session.auth.userId;
-        newProject.userId = userId;
-        const saved = await newProject.save();
-        // console.log('test', newProject);
-        res.json(newProject);
+        const projectErrors = validationResult(req);
+
+        if(projectErrors.isEmpty()) {
+            const newProject = await db.Project.build({ name, content, dueDate });
+            const userId = req.session.auth.userId;
+            newProject.userId = userId;
+            const saved = await newProject.save();
+            // console.log('test', newProject);
+            res.json(newProject);
+        } else {
+            let errors = projectErrors.array().map((error) => error.msg);
+        }
+
     })
 );
 
@@ -56,15 +64,14 @@ router.get('/:id(\\d+)',
     requireAuth,
     asyncHandler(async(req, res) => {
         const id = req.params.id;
-        const project = await db.Project.findByPk(id, {
-            include: db.User
-        });
+        const project = await db.Project.findByPk(id);
+        const projectUserId = project.userId;
         if(!project) {
             const err = new Error("What are you doing here? This project doesn't exist anyways.");
             err.status = 400;
             throw err;
         }
-        if(res.locals.user.id !== project.User.id) {
+        if(res.locals.user.id !== projectUserId) {
             const err = new Error("You don't belong here.");
             err.status = 401;
             throw err;

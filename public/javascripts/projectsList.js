@@ -173,11 +173,33 @@ document.addEventListener("DOMContentLoaded", async(e) => {
                 const { name, content, dueDate } = project;
                 let newDueDate = dueDate.split("T")[0];
                 singleProjectDiv.innerHTML = "";
-                singleProjectDiv.innerHTML = `<div id="single-project-holder"><div id="single-project-name-${id}">${name}</div><div id="single-project-content-${id}">${content}</div><div id="single-project-dueDate-${id}">${newDueDate}</div><button class="add-tasks" id="project-${id}-task">Add a Task</button><button class="project-edit" id="edit-${id}">Edit</button><button class="project-delete" id="delete-${id}">Delete</button></div><div id='task-container'>All Tasks</div>`;
+                singleProjectDiv.innerHTML = `<div id="single-project-holder"><div id="single-project-name-${id}">${name}</div><div id="single-project-content-${id}">${content}</div><div id="single-project-dueDate-${id}">${newDueDate}</div><button class="add-tasks" id="project-${id}-task">Add a Task</button><button class="project-edit" id="edit-${id}">Edit</button><button class="project-delete" id="delete-${id}">Delete</button></div><div id='task-container'>All Tasks</div></div>`;
+                const taskContainer = document.querySelector('#task-container');
                 deleteButtonFunctionality(id);
                 editButtonFunctionality(id);
                 addTaskFunc(id);
-            } catch (e) {}
+
+                const resTask = await fetch(`/tasks/${id}`, {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json"
+                    }
+                })
+                if(resTask.status == 401) {
+                    window.location.href = '/users/login'
+                } else {
+                    const { tasks } = await resTask.json();
+                    const taskArr = tasks.map(({name, content, language, dueDate, id}) => {
+                        let newDueDate = dueDate.split('T')[0];
+                        return `<div id="task-container-${id}" class="task-container-class"><div class="task-name" id="task-${id}">${name}</div><div class='task-content' id='task-content-${id}'>${content}</div><div class='task-language' id='language-${id}'>${language}</div><div class="task-dueDate" id="task-dueDate-${id}">${newDueDate}</div></div>`
+                    });
+                    console.log('a string with task', taskContainer);
+                    taskContainer.innerHTML = taskArr.join('');
+                    console.log('put a string', taskContainer);
+                }
+            } catch (e) {
+
+            }
         });
     };
     allProjects.forEach((project) => {

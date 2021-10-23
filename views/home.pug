@@ -4,6 +4,7 @@ block content
     div(class="container") Projects
         div(class="side-bar")
         div(class="main-display")
+            div(class='errors' id='project-errors')
             form(class='project-form')
                 input(type="hidden" name='_csrf' value=csrfToken)
                 br
@@ -18,6 +19,7 @@ block content
                 br
             button(type="submit" class="home-btn" id="add-project-btn") Add Project
             div(id="incomplete-projects-list")
+                div(class='errors' id='task-errors')
     div(id="single-project") Project Name Placeholder
     script(type="module" src="/javascripts/projectsList.js")
     script(type="module" src="/javascripts/add-project.js")
