@@ -90,6 +90,7 @@ const addTaskFunc = (id) => {
                     taskLanguage,
                     taskDeleteButton
                 );
+
                 newTaskHolder.remove();
                 taskDeleteButton.addEventListener("click", async(e) => {
                     try {
