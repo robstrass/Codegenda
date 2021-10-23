@@ -19,6 +19,9 @@ const projectValidation = [
     check("content")
     .exists({ checkFalsy: true })
     .withMessage("Please provide content."),
+    check('dueDate')
+    .exists({ checkFalsy: true })
+    .withMessage("Please select your project's due date.")
 ];
 
 router.get(
@@ -55,6 +58,7 @@ router.post(
             res.json(newProject);
         } else {
             let errors = projectErrors.array().map((error) => error.msg);
+            res.json({ errors });
         }
     })
 );

@@ -2,14 +2,16 @@ extends layout.pug
 block content
     div
     div(class="container") Projects
-        div(class="side-bar")
         div(class="main-display")
             div(class='errors' id='project-errors')
+                //- ul(class='ul-project-errors')
+                //-     each error in errors
+                //-         li= error
             form(class='project-form')
                 input(type="hidden" name='_csrf' value=csrfToken)
                 br
                 label(for='name') Project Name:
-                input(type="text" name='name' class="home-input" id="add-project-name" placeholder="Add a project" )
+                input(type="text" name='name' class="home-input" id="add-project-name" placeholder="Add a project")
                 br
                 label(for='content') Content:
                 textarea(name="content" id='add-project-content' cols="30", rows="10")

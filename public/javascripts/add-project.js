@@ -64,7 +64,7 @@ const addEventListenerToProject = (project) => {
             deleteButtonFunctionality(id);
             editButtonFunctionality(id);
             addTaskFunc(id);
-            
+
         } catch (e) {}
     });
 };
@@ -72,7 +72,7 @@ const addEventListenerToProject = (project) => {
 // actual event listener to create the divs to display on screen
 addBtn.addEventListener("click", async(e) => {
     const returnVal = await formFunc();
-
+    console.log('testing', returnVal)
     const { id, name, content, dueDate } = returnVal;
     if (projectName.value) {
         const mainProjectContainer = document.createElement("div");
