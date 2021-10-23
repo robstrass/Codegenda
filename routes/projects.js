@@ -18,7 +18,10 @@ const projectValidation = [
     .withMessage("Please make the project name less than 255 characters."),
     check("content")
     .exists({ checkFalsy: true })
-    .withMessage("Please provide content."),
+    .withMessage("Please provide content to describe your project."),
+    check('dueDate')
+    .exists({ checkFalsy: true })
+    .withMessage("Please select your project's due date.")
 ];
 
 router.get(
@@ -55,6 +58,7 @@ router.post(
             res.json(newProject);
         } else {
             let errors = projectErrors.array().map((error) => error.msg);
+            res.json({ errors });
         }
     })
 );

@@ -177,7 +177,7 @@ document.addEventListener("DOMContentLoaded", async(e) => {
                 const { name, content, dueDate } = project;
                 let newDueDate = dueDate.split("T")[0];
                 singleProjectDiv.innerHTML = "";
-                singleProjectDiv.innerHTML = `<div id="single-project-holder"><div id="single-project-name-${id}">${name}</div><div id="single-project-content-${id}">${content}</div><div id="single-project-dueDate-${id}">${newDueDate}</div><button class="add-tasks" id="project-${id}-task">Add a Task</button><button class="project-edit" id="edit-${id}">Edit</button><button class="project-delete" id="delete-${id}">Delete</button></div><div id='task-container'></div></div>`;
+                singleProjectDiv.innerHTML = `<div id="single-project-holder"><div id="single-project-name-${id}">${name}</div><div id="single-project-content-${id}">${content}</div><div id="single-project-dueDate-${id}">${newDueDate}</div><button class="add-tasks" id="project-${id}-task">Add a Task</button><button class="project-edit" id="edit-${id}">Edit</button><button class="project-delete" id="delete-${id}">Delete</button></div><div id='task-errors'></div><div id='task-container'></div></div>`;
                 const taskContainer = document.querySelector("#task-container");
                 deleteButtonFunctionality(id);
                 editButtonFunctionality(id);

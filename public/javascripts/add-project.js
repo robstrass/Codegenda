@@ -60,11 +60,11 @@ const addEventListenerToProject = (project) => {
             const { name, content, dueDate } = project;
             let newDueDate = dueDate.split("T")[0];
             singleProjectDiv.innerHTML = "";
-            singleProjectDiv.innerHTML = `<div id="single-project-holder"><div id="single-project-name-${id}">${name}</div><div id="single-project-content-${id}">${content}</div><div id="single-project-dueDate-${id}">${newDueDate}</div><button class="add-tasks" id="project-${id}-task">Add a Task</button><button class="project-edit" id="edit-${id}">Edit</button><button class="project-delete" id="delete-${id}">Delete</button></div><div id='task-container'></div><button>Delete Task</button></div>`;
+            singleProjectDiv.innerHTML = `<div id="single-project-holder"><div id="single-project-name-${id}">${name}</div><div id="single-project-content-${id}">${content}</div><div id="single-project-dueDate-${id}">${newDueDate}</div><button class="add-tasks" id="project-${id}-task">Add a Task</button><button class="project-edit" id="edit-${id}">Edit</button><button class="project-delete" id="delete-${id}">Delete</button></div><div id='task-errors'></div><div id='task-container'></div></div>`;
             deleteButtonFunctionality(id);
             editButtonFunctionality(id);
             addTaskFunc(id);
-            // console.log("did it edit?");
+
         } catch (e) {}
     });
 };
@@ -72,6 +72,22 @@ const addEventListenerToProject = (project) => {
 // actual event listener to create the divs to display on screen
 addBtn.addEventListener("click", async(e) => {
     const returnVal = await formFunc();
+    // console.log('testing', returnVal)
+    const { errors } = returnVal
+    console.log('errors arr', errors)
+
+    const errorsDiv = document.querySelector('#project-errors');
+    errorsDiv.innerHTML = '';
+    if (errors && errors.length > 0) {
+        const errorUL = document.createElement('ul');
+        errorsDiv.appendChild(errorUL);
+        errors.forEach(error => {
+            const newErrMsg = document.createElement('li');
+            newErrMsg.innerText = error;
+            errorUL.appendChild(newErrMsg);
+        })
+    }
+
 
     const { id, name, content, dueDate } = returnVal;
     if (projectName.value) {

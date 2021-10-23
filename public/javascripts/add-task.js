@@ -66,40 +66,56 @@ const addTaskFunc = (id) => {
             };
             taskSubmitBtn.addEventListener("click", async(e) => {
                 const returnTaskVal = await taskFormFunc();
-                const { id, name, content, dueDate, language } = returnTaskVal;
-                const taskContainerDiv = document.querySelector("#task-container");
-                let newDueDate = dueDate.split("T")[0];
+                // console.log('should be errors', returnTaskVal.errors)
+                const { errors } = returnTaskVal;
 
-                const taskHolder = document.createElement("div");
-                taskHolder.id = `task-container-${id}`;
-                taskContainerDiv.appendChild(taskHolder);
-                const taskName = document.createElement("div");
-                const taskContent = document.createElement("div");
-                const taskDueDate = document.createElement("div");
-                const taskLanguage = document.createElement("div");
-                const taskDeleteButton = document.createElement("button");
-                taskDeleteButton.innerText = "Delete Task";
-                taskName.innerText = name;
-                taskContent.innerText = content;
-                taskDueDate.innerText = newDueDate;
-                taskLanguage.innerText = language;
-                taskHolder.append(
-                    taskName,
-                    taskContent,
-                    taskDueDate,
-                    taskLanguage,
-                    taskDeleteButton
-                );
-                newTaskHolder.remove();
-                taskDeleteButton.addEventListener("click", async(e) => {
-                    try {
-                        const res = await fetch(`/tasks/${projectId}/${id}`, {
-                            method: "DELETE",
-                        });
-                        taskHolder.remove();
-                    } catch (e) {
-                    }
-                });
+                const taskErrorsDiv = document.querySelector('#task-errors');
+                taskErrorsDiv.innerHTML = '';
+                if (errors && errors.length > 0) {
+                    const errorsUL = document.createElement('ul');
+                    taskErrorsDiv.appendChild(errorsUL);
+                    errors.forEach(error => {
+                        const newErrMsg = document.createElement('li');
+                        newErrMsg.innerText = error;
+                        errorsUL.appendChild(newErrMsg);
+                    })
+                } else {
+                    const { id, name, content, dueDate, language } = returnTaskVal;
+                    const taskContainerDiv = document.querySelector("#task-container");
+                    let newDueDate = dueDate.split("T")[0];
+
+                    const taskHolder = document.createElement("div");
+                    taskHolder.id = `task-container-${id}`;
+                    taskContainerDiv.appendChild(taskHolder);
+                    const taskName = document.createElement("div");
+                    const taskContent = document.createElement("div");
+                    const taskDueDate = document.createElement("div");
+                    const taskLanguage = document.createElement("div");
+                    const taskDeleteButton = document.createElement("button");
+                    taskDeleteButton.innerText = "Delete Task";
+                    taskName.innerText = name;
+                    taskContent.innerText = content;
+                    taskDueDate.innerText = newDueDate;
+                    taskLanguage.innerText = language;
+                    taskHolder.append(
+                        taskName,
+                        taskContent,
+                        taskDueDate,
+                        taskLanguage,
+                        taskDeleteButton
+                    );
+
+                    newTaskHolder.remove();
+                    taskDeleteButton.addEventListener("click", async(e) => {
+                        try {
+                            const res = await fetch(`/tasks/${projectId}/${id}`, {
+                                method: "DELETE",
+                            });
+                            taskHolder.remove();
+                        } catch (e) {
+                        }
+                    });
+                }
             });
         } catch (e) {}
     });
