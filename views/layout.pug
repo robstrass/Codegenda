@@ -9,8 +9,9 @@ html
         a(class="brand nav-link" href="/") CodeGenda
         if locals.authenticated
           div.search-input
-            input(type="text" placeholder="Search project")
-            button Search 
+            form(action="/search" method="get")
+              input(name="term" type="search" id="searchTerm" placeholder="Search project")
+            button(class='search-button' id='search-button') Search
           div(class='rightBtn') Welcome!
             form(class='' action='/users/logout' method='post')
               button(class='logout-btn' href='/' type='submit') Logout
@@ -21,8 +22,8 @@ html
             form(action='/users/' method='post')
               button.navBarLoginBtn Demo User
       div.wrapper
-        div.sideBar 
-        div.mainContent 
+        div.sideBar
+        div.mainContent
           block content
         div.sideBar
       block footer
@@ -30,20 +31,16 @@ html
           div.footer-element
             p.creator Israel Romero
             a.github-link(href="https://github.com/snakedreamz")
-              img(src="/github-icon.png", alt="github" class="github-img") 
-          div.footer-element
-            p.creator Rob Strasser
-            a.github-link(href="https://github.com/robstrass") 
               img(src="/github-icon.png", alt="github" class="github-img")
           div.footer-element
-            p.creator Jake Payne 
+            p.creator Rob Strasser
+            a.github-link(href="https://github.com/robstrass")
+              img(src="/github-icon.png", alt="github" class="github-img")
+          div.footer-element
+            p.creator Jake Payne
             a.github-link(href="https://github.com/Payneless")
               img(src="/github-icon.png", alt="github" class="github-img")
           div.footer-element
             p.creator Jose Cantu
             a.github-link(href="https://github.com/Vour123")
               img(src="/github-icon.png", alt="github" class="github-img")
-          
-
-
-       
