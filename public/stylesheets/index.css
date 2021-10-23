@@ -50,11 +50,10 @@ div > h1 {
 }
 .mainContent {
   display: flex;
-  flex-direction: column;
   width: 64%;
   height: 100%;
-  align-items: center;
   min-height: 45rem;
+  justify-content: space-evenly;
 }
 .wrapper {
   display: flex;
@@ -109,6 +108,12 @@ div > h1 {
 }
 
 /* home page */
+
+/* .container,
+.container2 {
+  display: flex;
+  justify-content: flex-start;
+} */
 
 .home-img {
   position: relative;

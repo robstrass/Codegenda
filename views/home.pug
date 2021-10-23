@@ -1,7 +1,6 @@
 extends layout.pug
 block content
-    div
-    div(class="container") Projects
+    div(class="container")
         div(class="main-display")
             div(class='errors' id='project-errors')
                 //- ul(class='ul-project-errors')
@@ -22,7 +21,8 @@ block content
             button(type="submit" class="home-btn" id="add-project-btn") Add Project
             div(id="incomplete-projects-list")
                 div(class='errors' id='task-errors')
-    div(id="single-project") Project Name Placeholder
+    div(class='container2')
+        div(id="single-project") Project Name Placeholder
     script(type="module" src="/javascripts/projectsList.js")
     script(type="module" src="/javascripts/add-project.js")
     script(type='module' src="/javascripts/add-task.js")
