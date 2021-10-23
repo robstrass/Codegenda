@@ -105,6 +105,7 @@ router.delete('/:id(\\d+)', asyncHandler(async(req, res) => {
     const id = req.params.id;
     const project = await db.Project.findByPk(id)
     await project.destroy();
+    res.send('Deleted');
 }))
 
 module.exports = router;

@@ -61,6 +61,7 @@ router.delete(
         const id = req.params.taskId;
         const task = await db.Task.findByPk(id);
         await task.destroy();
+        res.send('Deleted')
     })
 );
 module.exports = router;
