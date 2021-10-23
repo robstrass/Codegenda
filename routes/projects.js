@@ -46,7 +46,7 @@ router.post(
         const { name, content, dueDate } = req.body;
         const projectErrors = validationResult(req);
 
-        if(projectErrors.isEmpty()) {
+        if (projectErrors.isEmpty()) {
             const newProject = await db.Project.build({ name, content, dueDate });
             const userId = req.session.auth.userId;
             newProject.userId = userId;
@@ -56,56 +56,63 @@ router.post(
         } else {
             let errors = projectErrors.array().map((error) => error.msg);
         }
-
     })
 );
 
-router.get('/:id(\\d+)',
+router.get(
+    "/:id(\\d+)",
     requireAuth,
     asyncHandler(async(req, res) => {
         const id = req.params.id;
         const project = await db.Project.findByPk(id);
         const projectUserId = project.userId;
-        if(!project) {
-            const err = new Error("What are you doing here? This project doesn't exist anyways.");
+        if (!project) {
+            const err = new Error(
+                "What are you doing here? This project doesn't exist anyways."
+            );
             err.status = 400;
             throw err;
         }
-        if(res.locals.user.id !== projectUserId) {
+        if (res.locals.user.id !== projectUserId) {
             const err = new Error("You don't belong here.");
             err.status = 401;
             throw err;
         }
         res.json({ project });
-    }));
+    })
+);
 
-
-router.put('/:id(\\d+)',
+router.put(
+    "/:id(\\d+)",
     projectValidation,
     asyncHandler(async(req, res, next) => {
         // grab id from params, destructure updated project fields from req.body
         const id = req.params.id;
-        const { name, content, dueDate } = req.body
+        const { name, content, dueDate } = req.body;
         const project = await db.Project.findByPk(id);
-        const err = new Error('Project not found!');
+        const err = new Error("Project not found!");
         if (project) {
             await project.update({
                 name,
                 content,
-                dueDate
-            })
+                dueDate,
+            });
 
             res.json({ project });
         } else {
             next(err);
         }
-    }));
+    })
+);
 
-router.delete('/:id(\\d+)', asyncHandler(async(req, res) => {
-    const id = req.params.id;
-    const project = await db.Project.findByPk(id)
-    await project.destroy();
-    res.send('Deleted');
-}))
+router.delete(
+    "/:id(\\d+)",
+    asyncHandler(async(req, res) => {
+        const id = req.params.id;
+        const project = await db.Project.findByPk(id);
+        await project.destroy();
+        res.send("Deleted");
+    })
+);
 
 module.exports = router;
