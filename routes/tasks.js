@@ -55,5 +55,12 @@ router.post(
         res.json(newTask);
     })
 );
-
+router.delete(
+    "/:projectId(\\d+)/:taskId(\\d+)",
+    asyncHandler(async(req, res) => {
+        const id = req.params.taskId;
+        const task = await db.Task.findByPk(id);
+        await task.destroy();
+    })
+);
 module.exports = router;

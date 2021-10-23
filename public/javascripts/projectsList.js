@@ -189,6 +189,8 @@ document.addEventListener("DOMContentLoaded", async(e) => {
                         "Content-Type": "application/json",
                     },
                 });
+                // const resTaskData = await resTask.json();
+                // console.log("a thing so you know", resTaskData.id);
                 if (resTask.status == 401) {
                     window.location.href = "/users/login";
                 } else {
@@ -196,13 +198,20 @@ document.addEventListener("DOMContentLoaded", async(e) => {
                     const taskArr = tasks.map(
                         ({ name, content, language, dueDate, id }) => {
                             let newDueDate = dueDate.split("T")[0];
-                            return `<div id="task-container-${id}" class="task-container-class"><div class="task-name" id="task-${id}">${name}</div><div class='task-content' id='task-content-${id}'>${content}</div><div class='task-language' id='language-${id}'>${language}</div><div class="task-dueDate" id="task-dueDate-${id}">${newDueDate}</div><button>Delete Task</button></div>`;
+                            return `<div id="task-container-${id}" class="task-container-class"><div class="task-name" id="task-${id}">${name}</div><div class='task-content' id='task-content-${id}'>${content}</div><div class='task-language' id='language-${id}'>${language}</div><div class="task-dueDate" id="task-dueDate-${id}">${newDueDate}</div><button class="delete-task-button">Delete Task</button></div>`;
                         }
                     );
-                    console.log("a string with task", taskContainer);
                     taskContainer.innerHTML = taskArr.join("");
-                    console.log("put a string", taskContainer);
                 }
+                // const taskDeleteButton = document.querySelector(".delete-task-button");
+                // taskDeleteButton.addEventListener("click", async(e) => {
+                //     try {
+                //         const res = await fetch(`/tasks/${id}/${id}`, {
+                //             method: "DELETE",
+                //         });
+                //         taskHolder.destroy();
+                //     } catch (e) {}
+                // });
             } catch (e) {}
         });
     };

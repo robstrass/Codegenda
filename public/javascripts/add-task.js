@@ -1,8 +1,8 @@
 const addTaskFunc = (id) => {
     const addTaskBtn = document.querySelector(`#project-${id}-task`);
     addTaskBtn.addEventListener("click", async(e) => {
-        console.log("string", id);
         try {
+            let projectId = id; //here
             const singleProjectDivEdit = document.querySelector("#single-project");
             const newTaskHolder = document.createElement("div");
             const newTaskForm = document.createElement("form");
@@ -66,7 +66,6 @@ const addTaskFunc = (id) => {
             };
             taskSubmitBtn.addEventListener("click", async(e) => {
                 const returnTaskVal = await taskFormFunc();
-                console.log("taskval", returnTaskVal);
                 const { id, name, content, dueDate, language } = returnTaskVal;
                 const taskContainerDiv = document.querySelector("#task-container");
                 let newDueDate = dueDate.split("T")[0];
@@ -79,13 +78,27 @@ const addTaskFunc = (id) => {
                 const taskDueDate = document.createElement("div");
                 const taskLanguage = document.createElement("div");
                 const taskDeleteButton = document.createElement("button");
-                taskDeleteButton.innerText = "Delete Task"
+                taskDeleteButton.innerText = "Delete Task";
                 taskName.innerText = name;
                 taskContent.innerText = content;
                 taskDueDate.innerText = newDueDate;
                 taskLanguage.innerText = language;
-                taskHolder.append(taskName, taskContent, taskDueDate, taskLanguage, taskDeleteButton);
+                taskHolder.append(
+                    taskName,
+                    taskContent,
+                    taskDueDate,
+                    taskLanguage,
+                    taskDeleteButton
+                );
                 newTaskHolder.remove();
+                taskDeleteButton.addEventListener("click", async(e) => {
+                    try {
+                        const res = await fetch(`/tasks/${projectId}/${id}`, {
+                            method: "DELETE",
+                        });
+                    } catch (e) {}
+                    taskHolder.remove();
+                });
             });
         } catch (e) {}
     });
