@@ -1,5 +1,8 @@
 import { addTaskFunc } from "./add-task.js";
 
+// const today = new Date().toISOString().split('T')[0];
+// document.getElementsByName('dueDate')[0].setAttribute('min', today);
+
 const deleteButtonFunctionality = (id) => {
     const deleteButton = document.querySelector(".project-delete");
     deleteButton.addEventListener("click", async(e) => {
@@ -135,6 +138,7 @@ const editButtonFunctionality = (id) => {
     });
 };
 document.addEventListener("DOMContentLoaded", async(e) => {
+    // console.log('today', today);
     const searchBar = document.querySelector('#searchTerm');
     searchBar.addEventListener('keydown', async(e) => {
         if (e.key === 'Enter') {
@@ -240,7 +244,7 @@ document.addEventListener("DOMContentLoaded", async(e) => {
                         } catch (e) {}
                     });
 
-                    const genTaskEditBtn = document.querySelector('.edit-task-button');
+                    const genTaskEditBtn = task.querySelector('.edit-task-button');
                     const genTaskEditBtnString = genTaskEditBtn.getAttribute('id');
                     const taskEditBtnId = genTaskEditBtnString.split('-')[3];
                     const taskEditButton = document.querySelector(`#task-edit-btn-${taskEditBtnId}`)

@@ -21,7 +21,9 @@ const taskValidation = [
     .withMessage("Please describe your task."),
     check('dueDate')
     .exists({ checkFalsy: true })
-    .withMessage('Please provide a due date for your Task'),
+    .withMessage('Please provide a due date for your Task')
+    .isAfter(new Date().toDateString())
+    .withMessage('Please choose a date in the future.'),
     check('language')
     .exists({ checkFalsy: true })
     .withMessage('Please provide a coding lanuage for the task.')
