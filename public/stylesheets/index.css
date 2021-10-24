@@ -302,7 +302,7 @@ div > h1 {
 
 #project-errors ul,
 #task-errors ul{
-  background-color: rgba(252, 151, 167, 1);
+  background-color: #f83838;
   border-radius: 8px;
   border: 0.125rem solid white;
   padding: 1rem 2rem;

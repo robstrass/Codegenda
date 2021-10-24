@@ -1,5 +1,5 @@
-import { addTaskFunc } from "./add-task";
-import { editButtonFunctionality, deleteButtonFunctionality } from "./projectsList";
+// import { addTaskFunc } from "./add-task";
+// import { editButtonFunctionality, deleteButtonFunctionality } from "./projectsList";
 const searchButton = document.querySelector("#search-button");
 const searchInput = document.querySelector("#searchTerm");
 const incompleteProjects = document.querySelector("#incomplete-projects-list")
