@@ -119,8 +119,12 @@ const editButtonFunctionality = (id) => {
                             return;
                         }
                     }
+                    const taskErrors = document.querySelector("#task-errors");
+                    const taskContainer = document.querySelector("#task-container");
                     editContainerDiv.remove();
                     singleHolderDiv.remove();
+                    taskContainer.remove();
+                    taskErrors.remove();
                 });
             }
         } catch (e) {}
@@ -198,7 +202,7 @@ document.addEventListener("DOMContentLoaded", async(e) => {
                     const taskArr = tasks.map(
                         ({ name, content, language, dueDate, id }) => {
                             let newDueDate = dueDate.split("T")[0];
-                            return `<div id="task-container-${id}" class="task-container-class"><div class="task-name" id="task-${id}">${name}</div><div class='task-content' id='task-content-${id}'>${content}</div><div class='task-language' id='language-${id}'>${language}</div><div class="task-dueDate" id="task-dueDate-${id}">${newDueDate}</div><button class="delete-task-button" id="task-delete-btn-${id}">Delete Task</button></div>`;
+                            return `<div id="task-container-${id}" class="task-container-class"><div class="task-name" id="task-name-${id}">${name}</div><div class='task-content' id='task-content-${id}'>${content}</div><div class='task-language' id='task-language-${id}'>${language}</div><div class="task-dueDate" id="task-dueDate-${id}">${newDueDate}</div><button class="edit-task-button" id="task-edit-btn-${id}">Edit Task</button><button class="delete-task-button" id="task-delete-btn-${id}">Delete Task</button></div>`;
                         }
                     );
                     taskContainer.innerHTML = taskArr.join("");
@@ -223,29 +227,4 @@ document.addEventListener("DOMContentLoaded", async(e) => {
         addEventListenerToProject(project);
     });
 });
-// const searchButton = document.querySelector("#search-button");
-// const searchInput = document.querySelector("#searchTerm");
-// searchButton.addEventListener("click", async(e) => {
-//     let searchTerm = searchInput.value;
-//     try {
-//         const res = await fetch(`/search/${searchTerm}`, {
-//             method: "GET",
-//             headers: {
-//                 "Content-Type": "application/json",
-//             },
-//         });
-
-//         const { projects } = await res.json();
-//         console.log("nothing", res.json());
-//         console.log(projects);
-//         incompleteProjects.innerHTML = "";
-//         const searchArr = projects.map(({ name, dueDate, id }) => {
-//             let newDueDate = dueDate.split("T")[0];
-//             return `<div id="project-container-${id}" class="project-container-class"><div class="project-name" id="project-${id}">${name}
-//                 </div><div class="project-dueDate" id="dueDate-${id}">${newDueDate}</div></div>`;
-//         });
-
-//         incompleteProjects.innerHTML = searchArr.join("");
-//     } catch (e) {}
-// });
 export { deleteButtonFunctionality, editButtonFunctionality };
