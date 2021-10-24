@@ -263,9 +263,9 @@ document.addEventListener("DOMContentLoaded", async(e) => {
                             editTaskLanguage.className = 'edit-task-field';
                             editTaskSubmitButton.className = 'edit-task-button';
 
-                            editTaskName.placeholder = 'Task Name';
-                            editTaskContent.placeholder= 'Content';
-                            editTaskLanguage.placeholder= 'Coding Language';
+                            editTaskName.placeholder = ' Task Name';
+                            editTaskContent.placeholder= ' Content';
+                            editTaskLanguage.placeholder= ' Coding Language';
                             editTaskSubmitButton.innerText = 'Submit';
 
                             taskHolder.append(editTaskDivContainer);
