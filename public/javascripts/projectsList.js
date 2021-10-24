@@ -218,7 +218,7 @@ document.addEventListener("DOMContentLoaded", async(e) => {
                     const buttonIdString = taskDeleteButton.getAttribute("id");
                     const taskId = buttonIdString.split("-")[3];
                     const taskHolder = document.querySelector(`#task-container-${taskId}`);
-                    console.log('all task divs', );
+                    console.log('all task divs', taskDeleteButton);
 
                     taskDeleteButton.addEventListener("click", async(e) => {
                         console.log('in delete', taskDeleteButton);
