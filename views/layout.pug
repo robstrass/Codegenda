@@ -12,7 +12,7 @@ html
             form(action="/search" method="get")
               input.search-bar-input(name="term" type="search" id="searchTerm" placeholder="Search project")
             button(class='search-button' id='search-button') Search
-          div(class='rightBtn') Welcome!
+          div(class='rightBtn') Welcome #{locals.user.username}!
             form(class='' action='/users/logout' method='post')
               button(class='logout-btn' href='/' type='submit') Logout
         else

@@ -23,6 +23,7 @@ router.get(
                 name: {
                     [Op.iLike]: "%" + term + "%",
                 },
+                userId: res.locals.user.id
             },
         });
         res.json({ searchedProjects });
