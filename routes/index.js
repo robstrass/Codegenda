@@ -14,19 +14,19 @@ router.get("/", function(req, res, next) {
     res.render("splash", { title: "Welcome to CodeGenda you silly programmer!" });
 });
 
-// router.get(
-//     "/search/:term",
-//     asyncHandler(async(req, res) => {
-//         const { term } = req.params;
-//         const searchedProjects = await db.Project.findAll({
-//             where: {
-//                 name: {
-//                     [Op.iLike]: "%" + term + "%",
-//                 },
-//             },
-//         });
-//         res.json({ searchedProjects });
-//     })
-// );
+router.get(
+    "/search/:term",
+    asyncHandler(async(req, res) => {
+        const { term } = req.params
+        const searchedProjects = await db.Project.findAll({
+            where: {
+                name: {
+                    [Op.iLike]: "%" + term + "%",
+                },
+            },
+        });
+        res.json({ searchedProjects });
+    })
+);
 
 module.exports = router;

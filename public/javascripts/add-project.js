@@ -115,3 +115,4 @@ addBtn.addEventListener("click", async(e) => {
         // console.log('after removing: ', projectName.value, dueDateDiv.value, contentDiv.value);
     }
 });
+
