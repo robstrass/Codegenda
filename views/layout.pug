@@ -10,7 +10,7 @@ html
         if locals.authenticated
           div.search-input
             form(action="/search" method="get")
-              input(name="term" type="search" id="searchTerm" placeholder="Search project")
+              input.search-bar-input(name="term" type="search" id="searchTerm" placeholder="Search project")
             button(class='search-button' id='search-button') Search
           div(class='rightBtn') Welcome!
             form(class='' action='/users/logout' method='post')
