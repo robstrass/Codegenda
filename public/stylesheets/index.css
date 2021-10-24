@@ -349,14 +349,16 @@ div > h1 {
   display: flex;
   gap: 3rem;
 }
-.project-container-class {
+.project-container-class,
+.project-box {
   border: 1px solid;
   border-radius: 4px;
   margin: 1rem;
   padding: 10px;
 }
 
-.project-container-class:hover {
+.project-container-class:hover,
+.project-box:hover {
   background-color: rgb(255, 131, 109);
 }
 
@@ -412,3 +414,4 @@ div > h1 {
     width: 90%;
   }
 }
+
