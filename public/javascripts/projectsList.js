@@ -207,127 +207,136 @@ document.addEventListener("DOMContentLoaded", async(e) => {
                     );
                     taskContainer.innerHTML = taskArr.join("");
                 }
-                const taskDeleteButton = document.querySelector(".delete-task-button");
-                const buttonIdString = taskDeleteButton.getAttribute("id");
-                const taskId = buttonIdString.split("-")[3];
-                const taskHolder = document.querySelector(`#task-container-${taskId}`);
 
-                taskDeleteButton.addEventListener("click", async(e) => {
-                    try {
-                        const res = await fetch(`/tasks/${id}/${taskId}`, {
-                            method: "DELETE",
-                        });
-                        taskHolder.remove();
-                    } catch (e) {}
-                });
+                const allTasks = document.querySelectorAll('.task-container-class');
+                const allTasksArr = Array.from(allTasks);
 
-                const genTaskEditBtn = document.querySelector('.edit-task-button');
-                const genTaskEditBtnString = genTaskEditBtn.getAttribute('id');
-                const taskEditBtnId = genTaskEditBtnString.split('-')[3];
-                const taskEditButton = document.querySelector(`#task-edit-btn-${taskEditBtnId}`)
-                taskEditButton.addEventListener('click', async(e) => {
-                    const checkEditTaskDiv = document.querySelector('.edit-task-div-container');
-                    if(!checkEditTaskDiv) {
-                        const editTaskDivContainer = document.createElement('div');
-                        const editTaskForm = document.createElement('form');
-                        const editTaskName = document.createElement('input');
-                        const editTaskContent = document.createElement('input');
-                        const editTaskLanguage = document.createElement("input");
-                        const editTaskDueDate = document.createElement("input")
-                        const editTaskSubmitButton = document.createElement('button');
-                        editTaskDueDate.type = 'date';
 
-                        editTaskDivContainer.className = 'edit-task-div-container';
-                        editTaskForm.className = 'edit-task-form';
-                        editTaskName.className = 'edit-task-field';
-                        editTaskContent.className = 'edit-task-field';
-                        editTaskLanguage.className = 'edit-task-field';
-                        editTaskSubmitButton.className = 'edit-task-button';
+                allTasksArr.forEach(task => {
+                    // console.log('task', task)
+                    const taskDeleteButton = task.querySelector(".delete-task-button");
+                    const buttonIdString = taskDeleteButton.getAttribute("id");
+                    const taskId = buttonIdString.split("-")[3];
+                    const taskHolder = document.querySelector(`#task-container-${taskId}`);
+                    console.log('all task divs', );
 
-                        editTaskName.placeholder = 'Task Name';
-                        editTaskContent.placeholder= 'Content';
-                        editTaskLanguage.placeholder= 'Coding Language';
-                        editTaskSubmitButton.innerText = 'Submit';
+                    taskDeleteButton.addEventListener("click", async(e) => {
+                        console.log('in delete', taskDeleteButton);
+                        try {
+                            const res = await fetch(`/tasks/${id}/${taskId}`, {
+                                method: "DELETE",
+                            });
+                            taskHolder.remove();
+                        } catch (e) {}
+                    });
 
-                        taskHolder.append(editTaskDivContainer);
-                        editTaskDivContainer.append(editTaskForm, editTaskSubmitButton);
-                        editTaskForm.append(editTaskName, editTaskContent, editTaskLanguage, editTaskDueDate);
+                    const genTaskEditBtn = document.querySelector('.edit-task-button');
+                    const genTaskEditBtnString = genTaskEditBtn.getAttribute('id');
+                    const taskEditBtnId = genTaskEditBtnString.split('-')[3];
+                    const taskEditButton = document.querySelector(`#task-edit-btn-${taskEditBtnId}`)
+                    taskEditButton.addEventListener('click', async(e) => {
+                        const checkEditTaskDiv = document.querySelector('.edit-task-div-container');
+                        if(!checkEditTaskDiv) {
+                            const editTaskDivContainer = document.createElement('div');
+                            const editTaskForm = document.createElement('form');
+                            const editTaskName = document.createElement('input');
+                            const editTaskContent = document.createElement('input');
+                            const editTaskLanguage = document.createElement("input");
+                            const editTaskDueDate = document.createElement("input")
+                            const editTaskSubmitButton = document.createElement('button');
+                            editTaskDueDate.type = 'date';
 
-                        const taskName = document.querySelector(`#task-name-${taskEditBtnId}`);
-                        const taskContent = document.querySelector(`#task-content-${taskEditBtnId}`);
-                        const taskLanguage = document.querySelector(`#task-language-${taskEditBtnId}`);
-                        const taskDueDate = document.querySelector(`#task-dueDate-${taskEditBtnId}`);
+                            editTaskDivContainer.className = 'edit-task-div-container';
+                            editTaskForm.className = 'edit-task-form';
+                            editTaskName.className = 'edit-task-field';
+                            editTaskContent.className = 'edit-task-field';
+                            editTaskLanguage.className = 'edit-task-field';
+                            editTaskSubmitButton.className = 'edit-task-button';
 
-                        editTaskSubmitButton.addEventListener('click', async(e) => {
-                            e.preventDefault();
+                            editTaskName.placeholder = 'Task Name';
+                            editTaskContent.placeholder= 'Content';
+                            editTaskLanguage.placeholder= 'Coding Language';
+                            editTaskSubmitButton.innerText = 'Submit';
 
-                            // taskName is what displays (original)
-                            if(editTaskName.value !== '') {
-                                const newTaskName = editTaskName.value;
-                                taskName.innerText = newTaskName;
-                            } else {
-                                editTaskName.value = taskName.innerText;
-                                taskName.innerText = editTaskName.value
-                            }
+                            taskHolder.append(editTaskDivContainer);
+                            editTaskDivContainer.append(editTaskForm, editTaskSubmitButton);
+                            editTaskForm.append(editTaskName, editTaskContent, editTaskLanguage, editTaskDueDate);
 
-                            if(editTaskContent.value !== '') {
-                                const newTaskContent = editTaskContent.value;
-                                taskContent.innerText = newTaskContent;
-                            } else {
-                                editTaskContent.value = taskContent.innerText;
-                                taskContent.innerText = editTaskContent.value;
-                            }
+                            const taskName = document.querySelector(`#task-name-${taskEditBtnId}`);
+                            const taskContent = document.querySelector(`#task-content-${taskEditBtnId}`);
+                            const taskLanguage = document.querySelector(`#task-language-${taskEditBtnId}`);
+                            const taskDueDate = document.querySelector(`#task-dueDate-${taskEditBtnId}`);
 
-                            if(editTaskLanguage.value !== '') {
-                                const newTaskLanguage = editTaskLanguage.value;
-                                taskLanguage.innerText = newTaskLanguage;
-                            } else {
-                                editTaskLanguage.value = taskLanguage.innerText;
-                                taskLanguage.innerText = editTaskLanguage.value
-                            }
+                            editTaskSubmitButton.addEventListener('click', async(e) => {
+                                e.preventDefault();
 
-                            if(editTaskDueDate.value !== '') {
-                                const newTaskDueDate = editTaskDueDate.value;
-                                taskDueDate.innerText = newTaskDueDate;
-                            } else {
-                                editTaskDueDate.value = taskDueDate.innerText;
-                                taskDueDate.innerText = editTaskDueDate.value;
-                            }
-
-                            const name = editTaskName.value;
-                            const content = editTaskContent.value;
-                            const language = editTaskLanguage.value;
-                            const dueDate = editTaskDueDate.value;
-                            // console.log('strings so we can see: ', name, content, language, dueDate);
-
-                            const body = { name, content, language, dueDate };
-                            let projectId = id;
-                            let taskId = taskEditBtnId;
-                            // console.log('in here', projectId, taskId);
-
-                            try {
-                                // console.log('before fetch');
-                                const res = await fetch(`/tasks/${projectId}/${taskId}`, {
-                                    method: "PUT",
-                                    headers: {
-                                        "Content-Type": "application/json"
-                                    },
-                                    body: JSON.stringify(body)
-                                });
-                                const entireEditDivHolder = document.querySelector('.edit-task-div-container');
-                                // console.log('edit holder', entireEditDivHolder);
-                                entireEditDivHolder.remove();
-                                // console.log('after fetch');
-                                if (res.status === 401) {
-                                    window.location.href("users/login");
-                                    return;
+                                // taskName is what displays (original)
+                                if(editTaskName.value !== '') {
+                                    const newTaskName = editTaskName.value;
+                                    taskName.innerText = newTaskName;
+                                } else {
+                                    editTaskName.value = taskName.innerText;
+                                    taskName.innerText = editTaskName.value
                                 }
-                            } catch (e) {
 
-                            }
-                        })
-                    }
+                                if(editTaskContent.value !== '') {
+                                    const newTaskContent = editTaskContent.value;
+                                    taskContent.innerText = newTaskContent;
+                                } else {
+                                    editTaskContent.value = taskContent.innerText;
+                                    taskContent.innerText = editTaskContent.value;
+                                }
 
+                                if(editTaskLanguage.value !== '') {
+                                    const newTaskLanguage = editTaskLanguage.value;
+                                    taskLanguage.innerText = newTaskLanguage;
+                                } else {
+                                    editTaskLanguage.value = taskLanguage.innerText;
+                                    taskLanguage.innerText = editTaskLanguage.value
+                                }
+
+                                if(editTaskDueDate.value !== '') {
+                                    const newTaskDueDate = editTaskDueDate.value;
+                                    taskDueDate.innerText = newTaskDueDate;
+                                } else {
+                                    editTaskDueDate.value = taskDueDate.innerText;
+                                    taskDueDate.innerText = editTaskDueDate.value;
+                                }
+
+                                const name = editTaskName.value;
+                                const content = editTaskContent.value;
+                                const language = editTaskLanguage.value;
+                                const dueDate = editTaskDueDate.value;
+                                // console.log('strings so we can see: ', name, content, language, dueDate);
+
+                                const body = { name, content, language, dueDate };
+                                let projectId = id;
+                                let taskId = taskEditBtnId;
+                                // console.log('in here', projectId, taskId);
+
+                                try {
+                                    // console.log('before fetch');
+                                    const res = await fetch(`/tasks/${projectId}/${taskId}`, {
+                                        method: "PUT",
+                                        headers: {
+                                            "Content-Type": "application/json"
+                                        },
+                                        body: JSON.stringify(body)
+                                    });
+                                    const entireEditDivHolder = document.querySelector('.edit-task-div-container');
+                                    // console.log('edit holder', entireEditDivHolder);
+                                    entireEditDivHolder.remove();
+                                    // console.log('after fetch');
+                                    if (res.status === 401) {
+                                        window.location.href("users/login");
+                                        return;
+                                    }
+                                } catch (e) {
+
+                                }
+                            })
+                        }
+                    })
                 })
             } catch (e) {}
         });
