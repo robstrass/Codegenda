@@ -119,8 +119,12 @@ const editButtonFunctionality = (id) => {
                             return;
                         }
                     }
+                    const taskErrors = document.querySelector("#task-errors");
+                    const taskContainer = document.querySelector("#task-container");
                     editContainerDiv.remove();
                     singleHolderDiv.remove();
+                    taskContainer.remove();
+                    taskErrors.remove();
                 });
             }
         } catch (e) {}
