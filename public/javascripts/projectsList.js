@@ -220,6 +220,115 @@ document.addEventListener("DOMContentLoaded", async(e) => {
                         taskHolder.remove();
                     } catch (e) {}
                 });
+
+                const genTaskEditBtn = document.querySelector('.edit-task-button');
+                const genTaskEditBtnString = genTaskEditBtn.getAttribute('id');
+                const taskEditBtnId = genTaskEditBtnString.split('-')[3];
+                const taskEditButton = document.querySelector(`#task-edit-btn-${taskEditBtnId}`)
+                taskEditButton.addEventListener('click', async(e) => {
+                    const checkEditTaskDiv = document.querySelector('.edit-task-div-container');
+                    if(!checkEditTaskDiv) {
+                        const editTaskDivContainer = document.createElement('div');
+                        const editTaskForm = document.createElement('form');
+                        const editTaskName = document.createElement('input');
+                        const editTaskContent = document.createElement('input');
+                        const editTaskLanguage = document.createElement("input");
+                        const editTaskDueDate = document.createElement("input")
+                        const editTaskSubmitButton = document.createElement('button');
+                        editTaskDueDate.type = 'date';
+
+                        editTaskDivContainer.className = 'edit-task-div-container';
+                        editTaskForm.className = 'edit-task-form';
+                        editTaskName.className = 'edit-task-field';
+                        editTaskContent.className = 'edit-task-field';
+                        editTaskLanguage.className = 'edit-task-field';
+                        editTaskSubmitButton.className = 'edit-task-button';
+
+                        editTaskName.placeholder = 'Task Name';
+                        editTaskContent.placeholder= 'Content';
+                        editTaskLanguage.placeholder= 'Coding Language';
+                        editTaskSubmitButton.innerText = 'Submit';
+
+                        taskHolder.append(editTaskDivContainer);
+                        editTaskDivContainer.append(editTaskForm, editTaskSubmitButton);
+                        editTaskForm.append(editTaskName, editTaskContent, editTaskLanguage, editTaskDueDate);
+
+                        const taskName = document.querySelector(`#task-name-${taskEditBtnId}`);
+                        const taskContent = document.querySelector(`#task-content-${taskEditBtnId}`);
+                        const taskLanguage = document.querySelector(`#task-language-${taskEditBtnId}`);
+                        const taskDueDate = document.querySelector(`#task-dueDate-${taskEditBtnId}`);
+
+                        editTaskSubmitButton.addEventListener('click', async(e) => {
+                            e.preventDefault();
+
+                            // taskName is what displays (original)
+                            if(editTaskName.value !== '') {
+                                const newTaskName = editTaskName.value;
+                                taskName.innerText = newTaskName;
+                            } else {
+                                editTaskName.value = taskName.innerText;
+                                taskName.innerText = editTaskName.value
+                            }
+
+                            if(editTaskContent.value !== '') {
+                                const newTaskContent = editTaskContent.value;
+                                taskContent.innerText = newTaskContent;
+                            } else {
+                                editTaskContent.value = taskContent.innerText;
+                                taskContent.innerText = editTaskContent.value;
+                            }
+
+                            if(editTaskLanguage.value !== '') {
+                                const newTaskLanguage = editTaskLanguage.value;
+                                taskLanguage.innerText = newTaskLanguage;
+                            } else {
+                                editTaskLanguage.value = taskLanguage.innerText;
+                                taskLanguage.innerText = editTaskLanguage.value
+                            }
+
+                            if(editTaskDueDate.value !== '') {
+                                const newTaskDueDate = editTaskDueDate.value;
+                                taskDueDate.innerText = newTaskDueDate;
+                            } else {
+                                editTaskDueDate.value = taskDueDate.innerText;
+                                taskDueDate.innerText = editTaskDueDate.value;
+                            }
+
+                            const name = editTaskName.value;
+                            const content = editTaskContent.value;
+                            const language = editTaskLanguage.value;
+                            const dueDate = editTaskDueDate.value;
+                            // console.log('strings so we can see: ', name, content, language, dueDate);
+
+                            const body = { name, content, language, dueDate };
+                            let projectId = id;
+                            let taskId = taskEditBtnId;
+                            // console.log('in here', projectId, taskId);
+
+                            try {
+                                // console.log('before fetch');
+                                const res = await fetch(`/tasks/${projectId}/${taskId}`, {
+                                    method: "PUT",
+                                    headers: {
+                                        "Content-Type": "application/json"
+                                    },
+                                    body: JSON.stringify(body)
+                                });
+                                const entireEditDivHolder = document.querySelector('.edit-task-div-container');
+                                // console.log('edit holder', entireEditDivHolder);
+                                entireEditDivHolder.remove();
+                                // console.log('after fetch');
+                                if (res.status === 401) {
+                                    window.location.href("users/login");
+                                    return;
+                                }
+                            } catch (e) {
+
+                            }
+                        })
+                    }
+
+                })
             } catch (e) {}
         });
     };

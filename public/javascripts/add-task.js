@@ -196,7 +196,7 @@ const addTaskFunc = (id) => {
                                 const content = editTaskContent.value;
                                 const language = editTaskLanguage.value;
                                 const dueDate = editTaskDueDate.value;
-                                console.log('strings so we can see: ', name, content, language, dueDate);
+                                // console.log('strings so we can see: ', name, content, language, dueDate);
 
                                 const body = { name, content, language, dueDate };
                                 try {
