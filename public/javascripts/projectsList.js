@@ -35,102 +35,112 @@ const editButtonFunctionality = (id) => {
     const editBtn = document.querySelector(".project-edit");
     editBtn.addEventListener("click", async(e) => {
         try {
-            const checkEditContainer = document.querySelector("#editContainer");
-            if (!checkEditContainer) {
-                const editContainerDiv = document.createElement("div");
-                editContainerDiv.id = "editContainer";
-                const inputBoxName = document.createElement("input");
-                const inputBoxContent = document.createElement("input");
-                const inputBoxDueDate = document.createElement("input");
-                const singleProjectDivEdit = document.querySelector(
-                    "#single-project-holder"
-                );
-                inputBoxName.placeholder = "Edit name";
-                inputBoxContent.placeholder = "Edit content";
-                inputBoxDueDate.type = "date";
-                const submitBtn = document.createElement("button");
-                submitBtn.innerHTML = "submit";
+            const addTaskBtn = document.querySelector('.new-task-container')
 
-                const singleHolderDiv = document.querySelector(
-                    "#single-project-holder"
-                );
+            if (!addTaskBtn) {
+                const checkEditContainer = document.querySelector("#editContainer");
+                if (!checkEditContainer) {
+                    const editContainerDiv = document.createElement("div");
+                    editContainerDiv.id = "editContainer";
+                    const inputBoxName = document.createElement("input");
+                    const inputBoxContent = document.createElement("input");
+                    const inputBoxDueDate = document.createElement("input");
+                    const singleProjectDivEdit = document.querySelector(
+                        "#single-project-holder"
+                    );
+                    inputBoxName.placeholder = "Edit name";
+                    inputBoxContent.placeholder = "Edit content";
+                    inputBoxDueDate.type = "date";
+                    const submitBtn = document.createElement("button");
+                    submitBtn.innerHTML = "submit";
 
-                editContainerDiv.appendChild(inputBoxName);
-                editContainerDiv.appendChild(inputBoxContent);
-                editContainerDiv.appendChild(inputBoxDueDate);
-                editContainerDiv.appendChild(submitBtn);
-                singleProjectDivEdit.appendChild(editContainerDiv);
-                //To replace values in our project and delete the edit fields
-                submitBtn.addEventListener("click", async(e) => {
-                    e.preventDefault();
-                    if (inputBoxName.value) {
-                        let nameValue = inputBoxName.value;
-                        let contentValue = inputBoxContent.value;
-                        let dateValue = inputBoxDueDate.value;
-                        //Changing main display project content
-                        const mainDisplayProjectName = document.querySelector(
-                            `#project-${id}`
-                        );
-                        const mainDisplayDueDate = document.querySelector(`#dueDate-${id}`);
-                        const prevNameValue = document.querySelector(
-                            `#single-project-name-${id}`
-                        );
-                        const prevContent = document.querySelector(
-                            `#single-project-content-${id}`
-                        );
-                        const prevDate = document.querySelector(
-                            `#single-project-dueDate-${id}`
-                        );
-                        // mainDisplayProjectName is main list stuff
-                        // prevNameValue is original stuff
-                        // nameValue is new stuff
-                        // console.log('prev vals: ', prevNameValue.innerHTML, prevContent.innerHTML, prevDate.innerHTML);
-                        if (nameValue) {
-                            prevNameValue.innerText = nameValue;
-                            mainDisplayProjectName.innerText = nameValue;
-                        } else {
-                            nameValue = prevNameValue.innerText;
+                    const singleHolderDiv = document.querySelector(
+                        "#single-project-holder"
+                    );
+
+                    editContainerDiv.appendChild(inputBoxName);
+                    editContainerDiv.appendChild(inputBoxContent);
+                    editContainerDiv.appendChild(inputBoxDueDate);
+                    editContainerDiv.appendChild(submitBtn);
+                    singleProjectDivEdit.appendChild(editContainerDiv);
+                    //To replace values in our project and delete the edit fields
+                    submitBtn.addEventListener("click", async(e) => {
+                        e.preventDefault();
+                        if (inputBoxName.value) {
+                            let nameValue = inputBoxName.value;
+                            let contentValue = inputBoxContent.value;
+                            let dateValue = inputBoxDueDate.value;
+                            //Changing main display project content
+                            const mainDisplayProjectName = document.querySelector(
+                                `#project-${id}`
+                            );
+                            const mainDisplayDueDate = document.querySelector(`#dueDate-${id}`);
+                            const prevNameValue = document.querySelector(
+                                `#single-project-name-${id}`
+                            );
+                            const prevContent = document.querySelector(
+                                `#single-project-content-${id}`
+                            );
+                            const prevDate = document.querySelector(
+                                `#single-project-dueDate-${id}`
+                            );
+                            // mainDisplayProjectName is main list stuff
+                            // prevNameValue is original stuff
+                            // nameValue is new stuff
+                            // console.log('prev vals: ', prevNameValue.innerHTML, prevContent.innerHTML, prevDate.innerHTML);
+                            if (nameValue) {
+                                prevNameValue.innerText = nameValue;
+                                mainDisplayProjectName.innerText = nameValue;
+                            } else {
+                                nameValue = prevNameValue.innerText;
+                            }
+                            if (contentValue) {
+                                prevContent.innerText = contentValue;
+                            } else {
+                                contentValue = prevContent.innerText;
+                            }
+                            if (dateValue) {
+                                prevDate.innerText = dateValue;
+                                mainDisplayDueDate.innerText = dateValue;
+                            } else {
+                                dateValue = prevDate.innerText;
+                            }
+                            const name = nameValue;
+                            const content = contentValue;
+                            const dueDate = dateValue;
+                            const body = { name, content, dueDate };
+                            // console.log('editing: ', body, body.name, body.content, body.dueDate);
+                            const res = await fetch(`/projects/${id}`, {
+                                method: "PUT",
+                                headers: {
+                                    "Content-Type": "application/json",
+                                },
+                                body: JSON.stringify(body),
+                            });
+                            if (res.status === 401) {
+                                window.location.href("users/login");
+                                return;
+                            }
                         }
-                        if (contentValue) {
-                            prevContent.innerText = contentValue;
-                        } else {
-                            contentValue = prevContent.innerText;
-                        }
-                        if (dateValue) {
-                            prevDate.innerText = dateValue;
-                            mainDisplayDueDate.innerText = dateValue;
-                        } else {
-                            dateValue = prevDate.innerText;
-                        }
-                        const name = nameValue;
-                        const content = contentValue;
-                        const dueDate = dateValue;
-                        const body = { name, content, dueDate };
-                        // console.log('editing: ', body, body.name, body.content, body.dueDate);
-                        const res = await fetch(`/projects/${id}`, {
-                            method: "PUT",
-                            headers: {
-                                "Content-Type": "application/json",
-                            },
-                            body: JSON.stringify(body),
-                        });
-                        if (res.status === 401) {
-                            window.location.href("users/login");
-                            return;
-                        }
-                    }
-                    const taskErrors = document.querySelector("#task-errors");
-                    const taskContainer = document.querySelector("#task-container");
-                    editContainerDiv.remove();
-                    singleHolderDiv.remove();
-                    taskContainer.remove();
-                    taskErrors.remove();
-                });
+                        const taskErrors = document.querySelector("#task-errors");
+                        const taskContainer = document.querySelector("#task-container");
+                        editContainerDiv.remove();
+                        singleHolderDiv.remove();
+                        taskContainer.remove();
+                        taskErrors.remove();
+                    });
+                }
             }
         } catch (e) {}
     });
 };
 document.addEventListener("DOMContentLoaded", async(e) => {
+    const searchBar = document.querySelector('#searchTerm');
+    searchBar.addEventListener('keydown', async(e) => {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+        }
+    });
     try {
         const res = await fetch("/projects", {
             method: "GET",
@@ -246,6 +256,16 @@ document.addEventListener("DOMContentLoaded", async(e) => {
                             const editTaskSubmitButton = document.createElement('button');
                             editTaskDueDate.type = 'date';
 
+                            // const nameLabel = document.createElement('label');
+                            // const contentLabel = document.createElement('label');
+                            // const languageLabel = document.createElement('label');
+                            // const dueDateLabel = document.createElement('label');
+
+                            // nameLabel.setAttribute('for', 'Name');
+                            // contentLabel.setAttribute('for', 'Content');
+                            // languageLabel.setAttribute('for', 'Language');
+                            // dueDateLabel.setAttribute('for', 'Due Date');
+
                             editTaskDivContainer.className = 'edit-task-div-container';
                             editTaskForm.className = 'edit-task-form';
                             editTaskName.className = 'edit-task-field';
@@ -253,9 +273,9 @@ document.addEventListener("DOMContentLoaded", async(e) => {
                             editTaskLanguage.className = 'edit-task-field';
                             editTaskSubmitButton.className = 'edit-task-button';
 
-                            editTaskName.placeholder = 'Task Name';
-                            editTaskContent.placeholder= 'Content';
-                            editTaskLanguage.placeholder= 'Coding Language';
+                            editTaskName.placeholder = ' Task Name';
+                            editTaskContent.placeholder= ' Content';
+                            editTaskLanguage.placeholder= ' Coding Language';
                             editTaskSubmitButton.innerText = 'Submit';
 
                             taskHolder.append(editTaskDivContainer);
