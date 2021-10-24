@@ -244,7 +244,7 @@ document.addEventListener("DOMContentLoaded", async(e) => {
                         } catch (e) {}
                     });
 
-                    const genTaskEditBtn = document.querySelector('.edit-task-button');
+                    const genTaskEditBtn = task.querySelector('.edit-task-button');
                     const genTaskEditBtnString = genTaskEditBtn.getAttribute('id');
                     const taskEditBtnId = genTaskEditBtnString.split('-')[3];
                     const taskEditButton = document.querySelector(`#task-edit-btn-${taskEditBtnId}`)
