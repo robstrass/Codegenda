@@ -1,8 +1,8 @@
-// import { addTaskFunc } from "./add-task";
-// import {
-//     editButtonFunctionality,
-//     deleteButtonFunctionality,
-// } from "./projectsList";
+import { addTaskFunc } from "./add-task.js";
+import {
+    editButtonFunctionality,
+    deleteButtonFunctionality,
+} from "./projectsList.js";
 //not currently working here ^
 const searchButton = document.querySelector("#search-button");
 const searchInput = document.querySelector("#searchTerm");
@@ -56,9 +56,9 @@ searchButton.addEventListener("click", async(e) => {
                 singleProjectDiv.innerHTML = `<div id="single-project-holder"><div id="single-project-name-${id}">${name}</div><div id="single-project-content-${id}">${content}</div><div id="single-project-dueDate-${id}">${newDueDate}</div><button class="add-tasks" id="project-${id}-task">Add a Task</button><button class="project-edit" id="edit-${id}">Edit</button><button class="project-delete" id="delete-${id}">Delete</button></div><div id='task-errors'></div><div id='task-container'></div></div>`;
                 const taskContainer = document.querySelector("#task-container");
                 //need to import to uncomment
-                // deleteButtonFunctionality(id);
-                // editButtonFunctionality(id);
-                // addTaskFunc(id);
+                deleteButtonFunctionality(id);
+                editButtonFunctionality(id);
+                addTaskFunc(id);
 
                 const resTask = await fetch(`/tasks/${id}`, {
                     method: "GET",
@@ -99,6 +99,7 @@ searchButton.addEventListener("click", async(e) => {
     allProjects.forEach((project) => {
         addEventListenerToProject(project);
     });
+    searchInput.value = "";
 });
 
 //add project details, edit, delete, add task, task details, edit task, delete task.
