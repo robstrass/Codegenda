@@ -94,6 +94,9 @@ const addTaskFunc = (id) => {
                     const taskDeleteButton = document.createElement("button");
                     const taskEditButton = document.createElement('button');
 
+                    taskDeleteButton.className = 'delete-task-button';
+                    taskEditButton.className = 'edit-task-button';
+
                     taskName.id = `task-name-${id}`;
                     taskContent.id =`task-content-${id}`;
                     taskDueDate.id = `task-dueDate-${id}`;
@@ -197,7 +200,7 @@ const addTaskFunc = (id) => {
 
                                 const body = { name, content, language, dueDate };
                                 try {
-                                    console.log('before fetch');
+                                    // console.log('before fetch');
                                     const res = await fetch(`/tasks/${projectId}/${id}`, {
                                         method: "PUT",
                                         headers: {
@@ -205,7 +208,10 @@ const addTaskFunc = (id) => {
                                         },
                                         body: JSON.stringify(body)
                                     });
-                                    console.log('after fetch');
+                                    const entireEditDivHolder = document.querySelector('.edit-task-div-container');
+                                    // console.log('edit holder', entireEditDivHolder);
+                                    entireEditDivHolder.remove();
+                                    // console.log('after fetch');
                                     if (res.status === 401) {
                                         window.location.href("users/login");
                                         return;
