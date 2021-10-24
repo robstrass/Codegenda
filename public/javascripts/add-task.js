@@ -69,16 +69,16 @@ const addTaskFunc = (id) => {
                 // console.log('should be errors', returnTaskVal.errors)
                 const { errors } = returnTaskVal;
 
-                const taskErrorsDiv = document.querySelector('#task-errors');
-                taskErrorsDiv.innerHTML = '';
+                const taskErrorsDiv = document.querySelector("#task-errors");
+                taskErrorsDiv.innerHTML = "";
                 if (errors && errors.length > 0) {
-                    const errorsUL = document.createElement('ul');
+                    const errorsUL = document.createElement("ul");
                     taskErrorsDiv.appendChild(errorsUL);
-                    errors.forEach(error => {
-                        const newErrMsg = document.createElement('li');
+                    errors.forEach((error) => {
+                        const newErrMsg = document.createElement("li");
                         newErrMsg.innerText = error;
                         errorsUL.appendChild(newErrMsg);
-                    })
+                    });
                 } else {
                     const { id, name, content, dueDate, language } = returnTaskVal;
                     const taskContainerDiv = document.querySelector("#task-container");
@@ -92,15 +92,15 @@ const addTaskFunc = (id) => {
                     const taskDueDate = document.createElement("div");
                     const taskLanguage = document.createElement("div");
                     const taskDeleteButton = document.createElement("button");
-                    const taskEditButton = document.createElement('button');
+                    const taskEditButton = document.createElement("button");
 
                     taskName.id = `task-name-${id}`;
-                    taskContent.id =`task-content-${id}`;
+                    taskContent.id = `task-content-${id}`;
                     taskDueDate.id = `task-dueDate-${id}`;
                     taskLanguage.id = `task-language-${id}`;
 
                     taskDeleteButton.innerText = "Delete Task";
-                    taskEditButton.innerText = 'Edit Task';
+                    taskEditButton.innerText = "Edit Task";
                     taskName.innerText = name;
                     taskContent.innerText = content;
                     taskDueDate.innerText = newDueDate;
@@ -121,63 +121,69 @@ const addTaskFunc = (id) => {
                                 method: "DELETE",
                             });
                             taskHolder.remove();
-                        } catch (e) {
-                        }
+                        } catch (e) {}
                     });
 
-                    taskEditButton.addEventListener('click', async(e) => {
-                        const checkEditTaskDiv = document.querySelector('.edit-task-div-container');
-                        if(!checkEditTaskDiv) {
-                            const editTaskDivContainer = document.createElement('div');
-                            const editTaskForm = document.createElement('form');
-                            const editTaskName = document.createElement('input');
-                            const editTaskContent = document.createElement('input');
+                    taskEditButton.addEventListener("click", async(e) => {
+                        const checkEditTaskDiv = document.querySelector(
+                            ".edit-task-div-container"
+                        );
+                        if (!checkEditTaskDiv) {
+                            const editTaskDivContainer = document.createElement("div");
+                            const editTaskForm = document.createElement("form");
+                            const editTaskName = document.createElement("input");
+                            const editTaskContent = document.createElement("input");
                             const editTaskLanguage = document.createElement("input");
-                            const editTaskDueDate = document.createElement("input")
-                            const editTaskSubmitButton = document.createElement('button');
-                            editTaskDueDate.type = 'date';
-    
-                            editTaskDivContainer.className = 'edit-task-div-container';
-                            editTaskForm.className = 'edit-task-form';
-                            editTaskName.className = 'edit-task-field';
-                            editTaskContent.className = 'edit-task-field';
-                            editTaskLanguage.className = 'edit-task-field';
-                            editTaskSubmitButton.className = 'edit-task-button';
-    
-                            editTaskName.placeholder = 'Task Name';
-                            editTaskContent.placeholder= 'Content';
-                            editTaskLanguage.placeholder= 'Coding Language';
-                            editTaskSubmitButton.innerText = 'Submit';
-    
+                            const editTaskDueDate = document.createElement("input");
+                            const editTaskSubmitButton = document.createElement("button");
+                            editTaskDueDate.type = "date";
+
+                            editTaskDivContainer.className = "edit-task-div-container";
+                            editTaskForm.className = "edit-task-form";
+                            editTaskName.className = "edit-task-field";
+                            editTaskContent.className = "edit-task-field";
+                            editTaskLanguage.className = "edit-task-field";
+                            editTaskSubmitButton.className = "edit-task-button";
+
+                            editTaskName.placeholder = "Task Name";
+                            editTaskContent.placeholder = "Content";
+                            editTaskLanguage.placeholder = "Coding Language";
+                            editTaskSubmitButton.innerText = "Submit";
+
                             taskHolder.append(editTaskDivContainer);
                             editTaskDivContainer.append(editTaskForm, editTaskSubmitButton);
-                            editTaskForm.append(editTaskName, editTaskContent, editTaskLanguage, editTaskDueDate);
+                            editTaskForm.append(
+                                editTaskName,
+                                editTaskContent,
+                                editTaskLanguage,
+                                editTaskDueDate
+                            );
 
-                            editTaskSubmitButton.addEventListener('click', async(e) => {
+                            editTaskSubmitButton.addEventListener("click", async(e) => {
                                 e.preventDefault();
 
-                                if(editTaskName.value !== '') {
+                                if (editTaskName.value !== "") {
                                     const newTaskName = editTaskName.value;
                                     taskName.innerText = newTaskName;
                                 } else {
-                                    editTaskName.value = taskName.innerText; 
+                                    editTaskName.value = taskName.innerText;
                                 }
-    
-                                if(editTaskContent.value !== '') {
+
+                                if (editTaskContent.value !== "") {
                                     const newTaskContent = editTaskContent.value;
                                     taskContent.innerText = newTaskContent;
                                 } else {
                                     editTaskContent.value = taskContent.innerText;
                                 }
-    
-                                if(editTaskLanguage.value !== '') {
+
+                                if (editTaskLanguage.value !== "") {
                                     const newTaskLanguage = editTaskLanguage.value;
                                     taskLanguage.innerText = newTaskLanguage;
                                 } else {
                                     editTaskLanguage.value = taskLanguage.innerText;
                                 }
-    
-                                if(editTaskDueDate.value !== '') {
+
+                                if (editTaskDueDate.value !== "") {
                                     const newTaskDueDate = editTaskDueDate.value;
                                     taskDueDate.innerText = newTaskDueDate;
                                 } else {
@@ -185,19 +191,16 @@ const addTaskFunc = (id) => {
                                 }
 
                                 const name = editTaskName;
-                                console.log('strings so we can see', name);
+                                console.log("strings so we can see", name);
 
                                 try {
                                     const res = await fetch(`/tasks/${projectId}/${id}`, {
                                         method: "PUT",
                                     });
-                                } catch (e) {    
-        
-                                }
-                            })
+                                } catch (e) {}
+                            });
                         }
-
-                    })
+                    });
                 }
             });
         } catch (e) {}
