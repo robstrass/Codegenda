@@ -1,28 +1,30 @@
 extends layout.pug
 block content
-    div(class="container")
-        div(class="main-display")
-            div(class='errors' id='project-errors')
-                //- ul(class='ul-project-errors')
-                //-     each error in errors
-                //-         li= error
-            form(class='project-form')
-                input(type="hidden" name='_csrf' value=csrfToken)
-                br
-                label(for='name') Project Name:
-                input(type="text" name='name' class="home-input" id="add-project-name" placeholder="Add a project")
-                br
-                label(for='content') Content:
-                textarea(name="content" id='add-project-content' cols="30", rows="10")
-                br
-                label(for='dueDate') Due Date:
-                input(name='dueDate' type='date' id='add-project-date')
-                br
-            button(type="submit" class="home-btn" id="add-project-btn") Add Project
-            div(id="incomplete-projects-list")
-                div(class='errors' id='task-errors')
-    div(class='container2')
-        div(id="single-project") Project Name Placeholder
+    div.main-content-container
+        div(class="container")
+            div(class="main-display")
+                div(class='errors' id='project-errors')
+                    //- ul(class='ul-project-errors')
+                    //-     each error in errors
+                    //-         li= error
+                div.project-form-div
+                    form(class='project-form')
+                        input(type="hidden" name='_csrf' value=csrfToken)
+                        br
+                        label(for='name') Project Name:
+                        input(type="text" name='name' class="home-input" id="add-project-name" placeholder="Add a project")
+                        br
+                        label(for='content') Content:
+                        textarea(name="content" id='add-project-content' cols="30", rows="10")
+                        br
+                        label(for='dueDate') Due Date:
+                        input(name='dueDate' type='date' id='add-project-date')
+                        br
+                button(type="submit" class="home-btn" id="add-project-btn") Add Project
+                div(id="incomplete-projects-list")
+                    div(class='errors' id='task-errors')
+        div(class='container2')
+            div(id="single-project")
     script(type="module" src="/javascripts/projectsList.js")
     script(type="module" src="/javascripts/add-project.js")
     script(type='module' src="/javascripts/add-task.js")

@@ -52,7 +52,7 @@ div > h1 {
   display: flex;
   width: 64%;
   height: 100%;
-  min-height: 68rem;
+  min-height: 45rem;
   flex-direction: column;
   align-items: center;
 }
@@ -84,19 +84,19 @@ div > h1 {
   display: flex;
   align-items: center;
 }
-.search-input > input {
+.search-bar-input {
   height: 1.5rem;
   background-color: rgba(255, 255, 255, 0.2);
-  border: none;
   color: white;
   border-radius: 4px;
+  border: none;
 }
-.search-input > input:focus {
+.search-bar-input:focus {
   background-color: white;
   color: black;
 }
 
-.search-input > input::placeholder {
+.search-bar-input::placeholder {
   color: white;
   padding: 5px;
 }
@@ -108,13 +108,24 @@ div > h1 {
   background-color: rgba(255, 255, 255, 0.2);
 }
 
+.home-btn {
+  width: 100%;
+  border: none;
+  border-radius: 4px;
+  padding: 5px;
+  background-color: whitesmoke;
+  color: black;
+}
+.home-btn:hover {
+  background-color: rgba(204, 204, 204, 0.788);
+}
 /* home page */
 
-/* .container,
-.container2 {
-  display: flex;
-  justify-content: flex-start;
-} */
+.container {
+  border: 1px solid;
+  border-radius: 4px;
+  padding: 15px;
+}
 
 .home-img {
   position: relative;
@@ -301,9 +312,103 @@ div > h1 {
 }
 
 #project-errors ul,
-#task-errors ul{
+#task-errors ul,
+.errors-container {
   background-color: #f83838;
   border-radius: 8px;
   border: 0.125rem solid white;
   padding: 1rem 2rem;
+  color: white;
+}
+
+/* home */
+
+.project-form {
+  display: flex;
+  flex-direction: column;
+}
+.project-form > input,
+.project-form > textarea {
+  border: none;
+  border-radius: 4px;
+}
+
+.container2 {
+  background-color: rgba(154, 230, 255, 0.39);
+  border-radius: 4px;
+  max-height: 40rem;
+  overflow-y: scroll;
+}
+#single-project-holder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 1rem;
+}
+.main-content-container {
+  display: flex;
+  gap: 3rem;
+}
+.project-container-class {
+  border: 1px solid;
+  border-radius: 4px;
+  margin: 1rem;
+  padding: 10px;
+}
+
+.project-container-class:hover {
+  background-color: rgb(255, 131, 109);
+}
+
+.add-tasks,
+.project-edit,
+.project-delete,
+#task-submit-button,
+.edit-task-button,
+.delete-task-button {
+  border: none;
+  border-radius: 4px;
+  padding: 5px;
+  background-color: whitesmoke;
+  color: black;
+  margin: 0.5rem;
+  width: 100%;
+}
+.new-task-container,
+#task-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 1rem;
+}
+
+.new-task-form {
+  gap: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 1rem;
+}
+
+.new-task-form > * {
+  border-radius: 4px;
+  border: none;
+  height: 1rem;
+  padding: 5px;
+  width: 100%;
+}
+
+/* media quearies*/
+@media only screen and (max-width: 600px) {
+  .sideBar {
+    width: 5%;
+  }
+  .log-in-container {
+    width: 90%;
+    margin-left: 30px;
+    margin-right: 30px;
+  }
+  .mainContent {
+    width: 90%;
+  }
 }
