@@ -10,6 +10,8 @@ const {
 const { requireAuth } = require("../auth");
 const db = require("../db/models");
 
+// const today = new Date();
+
 const projectValidation = [
     check("name")
     .exists({ checkFalsy: true })
@@ -22,6 +24,8 @@ const projectValidation = [
     check('dueDate')
     .exists({ checkFalsy: true })
     .withMessage("Please select your project's due date.")
+    .isAfter(new Date().toDateString())
+    .withMessage('Please choose a date in the future.')
 ];
 
 router.get(
