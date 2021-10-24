@@ -2,10 +2,11 @@ extends layout.pug
 
 block content
   div(class="sign-up-container")
-    div(class="errors-container")
-      ul
-        each error in errors
-          li= error
+    if errors.length > 0
+      div(class="errors-container")
+        ul
+          each error in errors
+            li= error
     h2 Sign up for free.
     form(class="sign-up-form" action='/users/signup' method="POST")
       input(type="hidden" name='_csrf' value=csrfToken)

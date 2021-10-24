@@ -11,7 +11,7 @@ const addTaskFunc = (id) => {
             const languageInputField = document.createElement("input");
             const dueDateInputField = document.createElement("input");
             const taskSubmit = document.createElement("button");
-
+          
             const newTaskContainerChecker = document.querySelector('.new-task-container');
 
             if (!newTaskContainerChecker) {
@@ -224,7 +224,6 @@ const addTaskFunc = (id) => {
                                     }
                                 })
                             }
-
                         })
                     }
                 });
