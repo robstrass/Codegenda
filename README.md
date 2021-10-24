@@ -28,6 +28,10 @@ Home page view(when signed in)
 
 
 <h3>Still to come</h3>
+<ul>
+  <li>Adding notes dynamically to tasks</li>
+  <li>Adding filters to only look at certain tasks that match selecte criteria</li>
+</ul>
 
 <h3>Contributors</h3>
 <ul>
