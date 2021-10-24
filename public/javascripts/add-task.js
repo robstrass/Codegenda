@@ -101,6 +101,20 @@ const addTaskFunc = (id) => {
                             const taskDeleteButton = document.createElement("button");
                             const taskEditButton = document.createElement('button');
 
+                            const nameLabel = document.createElement('label');
+                            const contentLabel = document.createElement('label');
+                            const languageLabel = document.createElement('label');
+                            const dueDateLabel = document.createElement('label');
+
+                            nameLabel.setAttribute('for', 'Name');
+                            contentLabel.setAttribute('for', 'Content');
+                            languageLabel.setAttribute('for', 'Language');
+                            dueDateLabel.setAttribute('for', 'Due Date');
+                            nameLabel.innerText = 'Name: ';
+                            contentLabel.innerText = 'Content: ';
+                            languageLabel.innerText = 'Language: ';
+                            dueDateLabel.innerText = 'Due Date: ';
+
                             taskDeleteButton.className = 'delete-task-button';
                             taskEditButton.className = 'edit-task-button';
 
@@ -116,9 +130,13 @@ const addTaskFunc = (id) => {
                             taskDueDate.innerText = newDueDate;
                             taskLanguage.innerText = language;
                             taskHolder.append(
+                                nameLabel,
                                 taskName,
+                                contentLabel,
                                 taskContent,
+                                dueDateLabel,
                                 taskDueDate,
+                                languageLabel,
                                 taskLanguage,
                                 taskEditButton,
                                 taskDeleteButton

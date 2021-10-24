@@ -256,6 +256,16 @@ document.addEventListener("DOMContentLoaded", async(e) => {
                             const editTaskSubmitButton = document.createElement('button');
                             editTaskDueDate.type = 'date';
 
+                            // const nameLabel = document.createElement('label');
+                            // const contentLabel = document.createElement('label');
+                            // const languageLabel = document.createElement('label');
+                            // const dueDateLabel = document.createElement('label');
+
+                            // nameLabel.setAttribute('for', 'Name');
+                            // contentLabel.setAttribute('for', 'Content');
+                            // languageLabel.setAttribute('for', 'Language');
+                            // dueDateLabel.setAttribute('for', 'Due Date');
+
                             editTaskDivContainer.className = 'edit-task-div-container';
                             editTaskForm.className = 'edit-task-form';
                             editTaskName.className = 'edit-task-field';
