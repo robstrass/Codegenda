@@ -2,7 +2,7 @@ const addTaskFunc = (id) => {
     const addTaskBtn = document.querySelector(`#project-${id}-task`);
     addTaskBtn.addEventListener("click", async(e) => {
         try {
-            let projectId = id; //here
+            const projectId = id; //here
             const singleProjectDivEdit = document.querySelector("#single-project");
             const newTaskHolder = document.createElement("div");
             const newTaskForm = document.createElement("form");
@@ -136,19 +136,19 @@ const addTaskFunc = (id) => {
                             const editTaskDueDate = document.createElement("input")
                             const editTaskSubmitButton = document.createElement('button');
                             editTaskDueDate.type = 'date';
-    
+
                             editTaskDivContainer.className = 'edit-task-div-container';
                             editTaskForm.className = 'edit-task-form';
                             editTaskName.className = 'edit-task-field';
                             editTaskContent.className = 'edit-task-field';
                             editTaskLanguage.className = 'edit-task-field';
                             editTaskSubmitButton.className = 'edit-task-button';
-    
+
                             editTaskName.placeholder = 'Task Name';
                             editTaskContent.placeholder= 'Content';
                             editTaskLanguage.placeholder= 'Coding Language';
                             editTaskSubmitButton.innerText = 'Submit';
-    
+
                             taskHolder.append(editTaskDivContainer);
                             editTaskDivContainer.append(editTaskForm, editTaskSubmitButton);
                             editTaskForm.append(editTaskName, editTaskContent, editTaskLanguage, editTaskDueDate);
@@ -156,43 +156,62 @@ const addTaskFunc = (id) => {
                             editTaskSubmitButton.addEventListener('click', async(e) => {
                                 e.preventDefault();
 
+                                // taskName is what displays (original)
                                 if(editTaskName.value !== '') {
                                     const newTaskName = editTaskName.value;
                                     taskName.innerText = newTaskName;
                                 } else {
-                                    editTaskName.value = taskName.innerText; 
+                                    editTaskName.value = taskName.innerText;
+                                    taskName.innerText = editTaskName.value
                                 }
-    
+
                                 if(editTaskContent.value !== '') {
                                     const newTaskContent = editTaskContent.value;
                                     taskContent.innerText = newTaskContent;
                                 } else {
                                     editTaskContent.value = taskContent.innerText;
+                                    taskContent.innerText = editTaskContent.value;
                                 }
-    
+
                                 if(editTaskLanguage.value !== '') {
                                     const newTaskLanguage = editTaskLanguage.value;
                                     taskLanguage.innerText = newTaskLanguage;
                                 } else {
                                     editTaskLanguage.value = taskLanguage.innerText;
+                                    taskLanguage.innerText = editTaskLanguage.value
                                 }
-    
+
                                 if(editTaskDueDate.value !== '') {
                                     const newTaskDueDate = editTaskDueDate.value;
                                     taskDueDate.innerText = newTaskDueDate;
                                 } else {
                                     editTaskDueDate.value = taskDueDate.innerText;
+                                    taskDueDate.innerText = editTaskDueDate.value;
                                 }
 
-                                const name = editTaskName;
-                                console.log('strings so we can see', name);
+                                const name = editTaskName.value;
+                                const content = editTaskContent.value;
+                                const language = editTaskLanguage.value;
+                                const dueDate = editTaskDueDate.value;
+                                console.log('strings so we can see: ', name, content, language, dueDate);
 
+                                const body = { name, content, language, dueDate };
                                 try {
+                                    console.log('before fetch');
                                     const res = await fetch(`/tasks/${projectId}/${id}`, {
                                         method: "PUT",
+                                        headers: {
+                                            "Content-Type": "application/json"
+                                        },
+                                        body: JSON.stringify(body)
                                     });
-                                } catch (e) {    
-        
+                                    console.log('after fetch');
+                                    if (res.status === 401) {
+                                        window.location.href("users/login");
+                                        return;
+                                    }
+                                } catch (e) {
+
                                 }
                             })
                         }

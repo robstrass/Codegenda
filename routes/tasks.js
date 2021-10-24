@@ -82,11 +82,28 @@ router.delete(
     })
 );
 
-// router.put(
-//     "/:projectId(\\d+)/:taskId(\\d+)",
-//     asyncHandler(async(req,res,next) => {
-//         const taskId = req.params
-//     })
+router.put(
+    "/:projectId(\\d+)/:taskId(\\d+)",
+    asyncHandler(async(req, res) => {
+        // console.log('req body: ', req.body);
+        const { projectId, taskId } = req.params;
+        const { name, content, language, dueDate } = req.body;
+        const task = await db.Task.findByPk(taskId);
+        const err = new Error('Task not found!');
+        if (task) {
+            await task.update({
+                name,
+                content,
+                dueDate,
+                language
+            });
+
+            res.json({ task });
+        } else {
+            next(err);
+        }
+    })
+);
 
 // router.put(
 //     "/:id(\\d+)",
