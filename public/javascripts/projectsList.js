@@ -131,6 +131,12 @@ const editButtonFunctionality = (id) => {
     });
 };
 document.addEventListener("DOMContentLoaded", async(e) => {
+    const searchBar = document.querySelector('#searchTerm');
+    searchBar.addEventListener('keydown', async(e) => {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+        }
+    });
     try {
         const res = await fetch("/projects", {
             method: "GET",
