@@ -9,7 +9,9 @@ Splash Page (while not signed in)
 ![image_2021-10-23_104417](https://user-images.githubusercontent.com/26901356/138566476-2bbb033c-3cb9-42e8-a8f1-c188d3b21083.png)
 
 
-Home page view(when signed in)
+Home page view(when signed in)<img width="1512" alt="Screen Shot 2021-10-24 at 5 50 57 PM" src="https://user-images.githubusercontent.com/85775768/138621092-90b07144-2812-4065-8703-454026acdade.png">
+
+
 
 
 <h2> Features </h2>
