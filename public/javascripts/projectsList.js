@@ -216,7 +216,7 @@ document.addEventListener("DOMContentLoaded", async(e) => {
                     const taskArr = tasks.map(
                         ({ name, content, language, dueDate, id }) => {
                             let newDueDate = dueDate.split("T")[0];
-                            return `<div id="task-container-${id}" class="task-container-class"><div class="task-name" id="task-name-${id}">${name}</div><div class='task-content' id='task-content-${id}'>${content}</div><div class='task-language' id='task-language-${id}'>${language}</div><div class="task-dueDate" id="task-dueDate-${id}">${newDueDate}</div><button class="edit-task-button" id="task-edit-btn-${id}">Edit Task</button><button class="delete-task-button" id="task-delete-btn-${id}">Delete Task</button></div>`;
+                            return `<div id="task-container-${id}" class="task-container-class"><label>Name: </label><div class="task-name" id="task-name-${id}">${name}</div><label>Content: </label><div class='task-content' id='task-content-${id}'>${content}</div><label>Language: </label><div class='task-language' id='task-language-${id}'>${language}</div><label>Due Date: </label><div class="task-dueDate" id="task-dueDate-${id}">${newDueDate}</div><button class="edit-task-button" id="task-edit-btn-${id}">Edit Task</button><button class="delete-task-button" id="task-delete-btn-${id}">Delete Task</button></div>`;
                         }
                     );
                     taskContainer.innerHTML = taskArr.join("");
