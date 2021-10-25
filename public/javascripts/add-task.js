@@ -1,8 +1,3 @@
-// import { today } from "./projectList.js";
-
-// const today = new Date().toISOString().split('T')[0];
-// document.getElementsByName('dueDate')[0].setAttribute('min', today);
-
 const addTaskFunc = (id) => {
     const addTaskBtn = document.querySelector(`#project-${id}-task`);
     addTaskBtn.addEventListener("click", async(e) => {
@@ -31,7 +26,6 @@ const addTaskFunc = (id) => {
                     languageInputField.className = "new-task-field";
                     dueDateInputField.className = "new-task-field";
                     dueDateInputField.type = "date";
-                    // dueDateInputField.setAttribute() = 'dueDate';
                     taskSubmit.id = "task-submit-button";
 
                     nameInputField.name = "new-task-name";

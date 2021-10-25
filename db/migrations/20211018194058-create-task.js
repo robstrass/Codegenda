@@ -27,6 +27,7 @@ module.exports = {
         type: Sequelize.INTEGER,
       },
       dueDate: {
+        allowNull: false,
         type: Sequelize.DATE,
       },
       language: {

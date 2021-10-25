@@ -87,30 +87,32 @@ addBtn.addEventListener("click", async (e) => {
     });
   }
 
-  const { id, name, content, dueDate } = returnVal;
-  if (projectName.value) {
-    const mainProjectContainer = document.createElement("div");
-    mainProjectContainer.className = "project-box";
-    mainProjectContainer.id = `project-container-${id}`;
-    incompleteProjects.appendChild(mainProjectContainer);
-    const newDiv = document.createElement("div");
-    newDiv.className = "project-name";
-    newDiv.id = `project-${id}`;
-    const dateDiv = document.createElement("div");
+  if (errors.length === 0) {
+    const { id, name, content, dueDate } = returnVal;
+    if (projectName.value) {
+      const mainProjectContainer = document.createElement("div");
+      mainProjectContainer.className = "project-box";
+      mainProjectContainer.id = `project-container-${id}`;
+      incompleteProjects.appendChild(mainProjectContainer);
+      const newDiv = document.createElement("div");
+      newDiv.className = "project-name";
+      newDiv.id = `project-${id}`;
+      const dateDiv = document.createElement("div");
 
-    newDiv.innerText = projectName.value;
-    let newDueDate = dueDate.split("T")[0];
-    if (newDueDate) {
-      dateDiv.innerText = newDueDate;
+      newDiv.innerText = projectName.value;
+      let newDueDate = dueDate.split("T")[0];
+      if (newDueDate) {
+        dateDiv.innerText = newDueDate;
+      }
+      mainProjectContainer.appendChild(newDiv);
+      mainProjectContainer.appendChild(dateDiv);
+
+      addEventListenerToProject(mainProjectContainer);
+      // console.log('add proj values: ', dueDateDiv.value, projectName.value)
+      projectName.value = "";
+      dueDateDiv.value = "";
+      contentDiv.value = "";
+      // console.log('after removing: ', projectName.value, dueDateDiv.value, contentDiv.value);
     }
-    mainProjectContainer.appendChild(newDiv);
-    mainProjectContainer.appendChild(dateDiv);
-
-    addEventListenerToProject(mainProjectContainer);
-    // console.log('add proj values: ', dueDateDiv.value, projectName.value)
-    projectName.value = "";
-    dueDateDiv.value = "";
-    contentDiv.value = "";
-    // console.log('after removing: ', projectName.value, dueDateDiv.value, contentDiv.value);
   }
 });
