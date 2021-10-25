@@ -87,7 +87,7 @@ addBtn.addEventListener("click", async (e) => {
     });
   }
 
-  if (errors.length === 0) {
+  if (!errors) {
     const { id, name, content, dueDate } = returnVal;
     if (projectName.value) {
       const mainProjectContainer = document.createElement("div");
