@@ -436,6 +436,7 @@ div > h1 {
   overflow-y: auto;
 }
 
+
 #single-project-holder {
   display: flex;
   flex-direction: column;
