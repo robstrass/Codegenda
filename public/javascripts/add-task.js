@@ -93,6 +93,7 @@ const addTaskFunc = (id) => {
 
                             const taskHolder = document.createElement("div");
                             taskHolder.id = `task-container-${id}`;
+                            taskHolder.className = 'task-container-class';
                             taskContainerDiv.appendChild(taskHolder);
                             const taskName = document.createElement("div");
                             const taskContent = document.createElement("div");

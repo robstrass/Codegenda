@@ -98,6 +98,7 @@ addBtn.addEventListener("click", async (e) => {
       newDiv.className = "project-name";
       newDiv.id = `project-${id}`;
       const dateDiv = document.createElement("div");
+      dateDiv.id = `dueDate-${id}`
 
       newDiv.innerText = projectName.value;
       let newDueDate = dueDate.split("T")[0];
