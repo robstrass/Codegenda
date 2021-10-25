@@ -399,6 +399,12 @@ div > h1 {
   width: 90%;
 }
 
+.task-container-class > label {
+  font-size: 1.1rem;
+  font-weight: bold;
+  text-decoration: underline;
+}
+
 .edit-task-field {
   width: 100%;
 }
