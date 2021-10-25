@@ -1,5 +1,5 @@
 # Codegenda
-Codegenda is a web application modeled after Remember The Milk. Codegenda is geared towards programmers and software engineers as a way to store current info on projects(lists) and add tasks to those projects that they are working on. It is written with a combination of vanilla Javascript for the frontend, Express.js for the backend, and PUG for the rendered pages.  
+Codegenda is a web application modeled after Remember The Milk. Codegenda is geared towards programmers and software engineers as a way to store current info on projects(lists) and add tasks to those projects that they are working on. It is written with a combination of vanilla Javascript for the frontend, Express.js for the backend, and PUG for the rendered pages.
 
 <h4> Link to Live Application: <a href="http://codegenda.herokuapp.com">Codegenda</a></h4>
 
@@ -10,8 +10,6 @@ Splash Page (while not signed in)
 
 
 Home page view(when signed in)<img width="1512" alt="Screen Shot 2021-10-24 at 5 50 57 PM" src="https://user-images.githubusercontent.com/85775768/138621092-90b07144-2812-4065-8703-454026acdade.png">
-
-
 
 
 <h2> Features </h2>

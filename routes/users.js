@@ -92,7 +92,13 @@ router.get("/:id(\\d+)/home", requireAuth, async (req, res, next) => {
 
 router.get("/login", csrfProtection, (req, res) => {
   const errors = [];
-  res.render("login", { csrfToken: req.csrfToken(), errors });
+  console.log('here', res.locals)
+  if (res.locals.authenticated) {
+    const userId = res.locals.user.id
+    res.redirect(`/users/${userId}/home`);
+  } else {
+    res.render("login", { csrfToken: req.csrfToken(), errors });
+  }
 });
 
 router.post(
@@ -117,9 +123,9 @@ router.post(
       errors.push("Invalid password!");
       res.render("login", { csrfToken: req.csrfToken(), errors });
     } else {
-      loginUser(req, res, user);
-      res.redirect(`/users/${user.id}/home`);
+      await loginUser(req, res, user);
     }
+    res.redirect(`/users/${user.id}/home`);
   })
 );
 
